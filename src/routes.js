@@ -5,7 +5,8 @@ import {
   BarcodeOutlined,
   TeamOutlined,
   WalletOutlined,
-  FormOutlined,
+  ScheduleOutlined,
+  MehOutlined,
 } from "@ant-design/icons";
 
 //pages
@@ -55,7 +56,7 @@ const ALL_ROUTES = [
   {
     label: "Randevu İşlemleri",
     key: "/appointments",
-    icon: <FormOutlined />,
+    icon: <ScheduleOutlined />,
     path: "/appointments",
     element: <AppointmentsPage />,
   },
@@ -77,7 +78,7 @@ const ALL_ROUTES = [
   {
     label: "Çalışan İşlemleri",
     key: "/employees",
-    icon: <SettingOutlined />,
+    icon: <MehOutlined />,
     disabled: true,
     path: "/employees",
     element: <EmployeesPage />,

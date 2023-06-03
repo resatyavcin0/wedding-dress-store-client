@@ -1,8 +1,10 @@
 import React from "react";
 import MainCore from "../core/Main";
-import TableComponent from "../components/TableComponent";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
 
 const AppointmentsPage = () => {
+  const localizer = momentLocalizer(moment);
   return (
     <MainCore
       title={"Randevular"}
@@ -10,7 +12,13 @@ const AppointmentsPage = () => {
         "Bu sayfada geçmişteki tüm randevular gözükmektedir. İçlerinde aramalar yapabilir ve onları yönetebilirsiniz."
       }
     >
-      <TableComponent />
+      <Calendar
+        localizer={localizer}
+        // events={myEventsList}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500 }}
+      />
     </MainCore>
   );
 };

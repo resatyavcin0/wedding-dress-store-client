@@ -1,5 +1,7 @@
 import React from "react";
 import MainCore from "../core/Main";
+import TableComponent from "../components/TableComponent";
+import DrawerComponent from "../components/DrawerComponent";
 
 const CostumersPage = () => {
   return (
@@ -9,7 +11,8 @@ const CostumersPage = () => {
         "Bu sayfada tüm müşteri kayıtlarına ulaşabilir ve onları yönetebilirsiniz"
       }
     >
-      CostumersPage
+      <TableComponent />
+      <DrawerComponent />
     </MainCore>
   );
 };

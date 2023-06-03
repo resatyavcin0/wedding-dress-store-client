@@ -1,5 +1,6 @@
 import React from "react";
 import MainCore from "../core/Main";
+import TableComponent from "../components/TableComponent";
 
 const EmployeesPage = () => {
   return (
@@ -9,7 +10,7 @@ const EmployeesPage = () => {
         "Bu sayfada tüm çalışan kayıtlarına ulaşabilir ve onları yönetebilirsiniz"
       }
     >
-      EmployeesPage
+      <TableComponent />
     </MainCore>
   );
 };
