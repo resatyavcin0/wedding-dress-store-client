@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import PinInput from "react-pin-input";
 import Auth from "../core/Auth";
-import { Alert, Typography } from "antd";
+import { Alert, Typography, Statistic } from "antd";
 
 const PinInputStyleInitialState = {
   borderRadius: 4,
@@ -10,6 +10,8 @@ const PinInputStyleInitialState = {
   border: "1px solid gray",
 };
 const PinInputStyleFocusState = {};
+
+const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30; // Dayjs is also OK
 
 const VerifyPage = () => {
   const [loading, setLoading] = useState(false);
@@ -54,9 +56,11 @@ const VerifyPage = () => {
         regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
       />
 
-      <Typography.Title level={4} style={{ marginTop: 20 }}>
-        Kalan: 00:30
-      </Typography.Title>
+      <Statistic.Countdown
+        title="Million Seconds"
+        value={deadline}
+        format="HH:mm:ss:SSS"
+      />
 
       <Typography.Link href="https://ant.design" target="_blank">
         Mesaj Gelmedi mi? tekrar deneyiniz.
