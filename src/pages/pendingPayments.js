@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import MainCore from "../core/Main";
-import { Card, Tag, Timeline } from "antd";
+
+//components
+import FilterComponent from "../components/pendingPayments/FilterComponent";
+import AllCredistsListComponent from "../components/pendingPayments/AllCreditsListComponent";
 
 const ALL_CREDITS = [
   {
@@ -45,9 +48,85 @@ const ALL_CREDITS = [
       },
     ],
   },
+  {
+    name: "Hayati Menge",
+    isFinish: true,
+    payments: [
+      {
+        price: 2000,
+        date: "11/01/2023",
+        kim: "Sakiye Merka",
+        type: "KAPORA",
+      },
+      {
+        price: 2000,
+        date: "11/02/2023",
+        kim: "Sakiye Merka",
+        type: "TAKSIT",
+      },
+      {
+        price: 2000,
+        date: "11/03/2023",
+        kim: "Sakiye Merka",
+        type: "TAKSIT",
+      },
+    ],
+  },
+  {
+    name: "Hayati Menge",
+    isFinish: true,
+    payments: [
+      {
+        price: 2000,
+        date: "11/01/2023",
+        kim: "Sakiye Merka",
+        type: "KAPORA",
+      },
+      {
+        price: 2000,
+        date: "11/02/2023",
+        kim: "Sakiye Merka",
+        type: "TAKSIT",
+      },
+      {
+        price: 2000,
+        date: "11/03/2023",
+        kim: "Sakiye Merka",
+        type: "TAKSIT",
+      },
+    ],
+  },
+  {
+    name: "Hayati Menge",
+    isFinish: true,
+    payments: [
+      {
+        price: 2000,
+        date: "11/01/2023",
+        kim: "Sakiye Merka",
+        type: "KAPORA",
+      },
+      {
+        price: 2000,
+        date: "11/02/2023",
+        kim: "Sakiye Merka",
+        type: "TAKSIT",
+      },
+      {
+        price: 2000,
+        date: "11/03/2023",
+        kim: "Sakiye Merka",
+        type: "TAKSIT",
+      },
+    ],
+  },
 ];
 
 const PendingPaymentsPage = () => {
+  const onChange = (checked) => {
+    console.log(`switch to ${checked}`);
+  };
+
   return (
     <MainCore
       title={"Bekleyen Taksitler"}
@@ -55,30 +134,9 @@ const PendingPaymentsPage = () => {
         "Bu sayfada tüm bekleyen taksit kayıtlarına ulaşabilir ve onları yönetebilirsiniz"
       }
     >
-      <div style={{ display: "flex", gap: 24 }}>
-        {ALL_CREDITS.map((item, key) => (
-          <Card
-            title={item.name}
-            bordered={false}
-            style={{ width: 400 }}
-            extra={
-              item.isFinish ? (
-                <Tag color="green">Ödeme Tamamlandı</Tag>
-              ) : (
-                <a href="#">Ödeme Al</a>
-              )
-            }
-          >
-            <Timeline
-              items={item.payments.map((item, key) => ({
-                color: item.type === "KAPORA" ? "green" : "blue",
-                label: item.date,
-                children: `${item.price}₺`,
-              }))}
-            />
-          </Card>
-        ))}
-      </div>
+      <FilterComponent onChange={onChange} />
+
+      <AllCredistsListComponent allCredits={ALL_CREDITS} />
     </MainCore>
   );
 };

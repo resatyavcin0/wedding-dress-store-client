@@ -1,28 +1,22 @@
-import { Button, Drawer } from "antd";
-import React, { useState } from "react";
+import { Drawer } from "antd";
+import React from "react";
 
-const DrawerComponent = () => {
-  const [open, setOpen] = useState(false);
-  const showDrawer = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
-  };
+const DrawerComponent = ({
+  closeDrawerHandler,
+  showDrawerState,
+  title,
+  placement,
+  children,
+}) => {
   return (
     <>
-      <Button type="primary" onClick={showDrawer}>
-        Open
-      </Button>
       <Drawer
-        title="Basic Drawer"
-        placement="right"
-        onClose={onClose}
-        open={open}
+        title={title}
+        placement={placement}
+        onClose={closeDrawerHandler}
+        open={showDrawerState}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        {children}
       </Drawer>
     </>
   );
