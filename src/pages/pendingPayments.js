@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import MainCore from "../core/Main";
 
 //components
-import FilterComponent from "../components/pendingPayments/FilterComponent";
 import AllCredistsListComponent from "../components/pendingPayments/AllCreditsListComponent";
+
+//containers
+import PaymentHistoryDrawerContainer from "../containers/pendingPayments/PaymentHistoryDrawerContainer";
+import GetPaidModalContainer from "../containers/pendingPayments/GetPaidModalContainer";
 
 const ALL_CREDITS = [
   {
@@ -123,10 +126,6 @@ const ALL_CREDITS = [
 ];
 
 const PendingPaymentsPage = () => {
-  const onChange = (checked) => {
-    console.log(`switch to ${checked}`);
-  };
-
   return (
     <MainCore
       title={"Bekleyen Taksitler"}
@@ -134,9 +133,9 @@ const PendingPaymentsPage = () => {
         "Bu sayfada tüm bekleyen taksit kayıtlarına ulaşabilir ve onları yönetebilirsiniz"
       }
     >
-      <FilterComponent onChange={onChange} />
-
       <AllCredistsListComponent allCredits={ALL_CREDITS} />
+      {/* <PaymentHistoryDrawerContainer />
+      <GetPaidModalContainer /> */}
     </MainCore>
   );
 };

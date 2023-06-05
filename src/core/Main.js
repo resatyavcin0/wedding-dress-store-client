@@ -18,7 +18,7 @@ const MainCore = ({ title, subTitle, children }) => {
   const navigate = useNavigate();
   const [current, setCurrent] = useState("mail");
   const onClick = (e) => {
-    setCurrent(e.key);
+    setCurrent([e.key]);
     navigate(e?.key);
   };
 
@@ -26,7 +26,7 @@ const MainCore = ({ title, subTitle, children }) => {
     <div>
       <Menu
         onClick={onClick}
-        selectedKeys={[current]}
+        selectedKeys={[...current]}
         mode="horizontal"
         items={items}
       />
