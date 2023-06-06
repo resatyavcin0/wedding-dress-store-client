@@ -6,6 +6,8 @@ import TableComponent from "../components/TableComponent";
 
 //containers
 import InvoicePaidModalContainer from "../containers/pendingPayments/InvoicePaidModalContainer";
+import { useQuery } from "@tanstack/react-query";
+import { Spin } from "antd";
 
 const CostumersPage = () => {
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
@@ -16,44 +18,51 @@ const CostumersPage = () => {
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      render: (text) => <a onClick={openInvoiceModalHandler}>{text}</a>,
+      title: "İsim",
+      dataIndex: "firstName",
+      key: "id",
+      render: (text, column) =>
+        column?.appointments?.length > 0 ? (
+          <a onClick={openInvoiceModalHandler}>{text}</a>
+        ) : (
+          text
+        ),
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Soyisim",
+      dataIndex: "lastName",
+      key: "id",
+      render: (text, column) =>
+        column?.appointments?.length > 0 ? (
+          <a onClick={openInvoiceModalHandler}>{text}</a>
+        ) : (
+          text
+        ),
+    },
+    {
+      title: "Birincil Telefon Numarası",
+      dataIndex: "primaryPhoneNumber",
+      key: "id",
+    },
+    {
+      title: "İkincil Telefon Numarası",
+      dataIndex: "secondaryPhoneNumber",
+      key: "id",
     },
     {
       title: "Address",
       dataIndex: "address",
-      key: "address",
-    },
-  ];
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
+      key: "id",
     },
   ];
 
+  const { isLoading, data } = useQuery([], {
+    queryKey: ["costumers"],
+    queryFn: async () =>
+      await fetch(`http://localhost:8080/costumers`).then((res) => res.json()),
+  });
+
+  console.log(data);
   return (
     <MainCore
       title={"Müşteriler"}
@@ -61,7 +70,9 @@ const CostumersPage = () => {
         "Bu sayfada tüm müşteri kayıtlarına ulaşabilir ve onları yönetebilirsiniz"
       }
     >
-      <TableComponent columns={columns} data={data} />
+      <Spin spinning={isLoading}>
+        <TableComponent columns={columns} data={data} />
+      </Spin>
       <InvoicePaidModalContainer
         showInvoiceModal={showInvoiceModal}
         setShowInvoiceModal={setShowInvoiceModal}

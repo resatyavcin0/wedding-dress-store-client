@@ -1,16 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainCore from "../core/Main";
 
-//utils
-import { Button, Card, Tabs } from "antd";
+//containers
 import ProductDetailDrawer from "../containers/product/ProductDetailDrawer";
 import AddProductModalContainer from "../containers/product/AddProductModalContainer";
+import AvailableProductDateRangeModalContainer from "../containers/product/AvailableProductDateRangeModalContainer";
+
+//utils
+import { Button, Card, Spin, Tabs } from "antd";
+import { useQuery } from "@tanstack/react-query";
 
 const ProductsPage = () => {
   const [showProductDetailDrawerState, setShowProductDetailDrawerState] =
     useState(false);
   const [showProductAddModalState, setShowProductAddModalState] =
     useState(false);
+  const [showProductAvailableModalState, setShowProductAvailableModalState] =
+    useState(false);
+  const [typeOfProductState, setTypeOfProductState] = useState("GELINLIK");
+
+  const { isLoading, data, refetch } = useQuery([typeOfProductState], {
+    queryKey: ["products"],
+    queryFn: async () =>
+      await fetch(
+        `http://localhost:8080/products?productType=${typeOfProductState}`
+      ).then((res) => res.json()),
+  });
 
   const openProductDetailDrawer = () => {
     setShowProductDetailDrawerState(true);
@@ -19,23 +34,31 @@ const ProductsPage = () => {
   const openProductAddModalHandler = () => {
     setShowProductAddModalState(true);
   };
-  const onChange = (key) => {
-    console.log(key);
+
+  const openProductAvailableModalHandler = () => {
+    setShowProductAvailableModalState(true);
   };
+
+  const onChangeHandler = (key) => {
+    setTypeOfProductState(key);
+    refetch();
+  };
+
   const items = [
     {
-      key: "1",
+      key: "GELINLIK",
       label: `Gelinlik`,
     },
     {
-      key: "2",
+      key: "NISANLIK",
       label: `Nişanlık`,
     },
     {
-      key: "3",
+      key: "KINALIK",
       label: `Kınalık`,
     },
   ];
+
   return (
     <MainCore
       title={"Ürünler"}
@@ -50,23 +73,37 @@ const ProductsPage = () => {
       >
         Ürün Ekle
       </Button>
-      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, 340px)",
-          justifyContent: "center",
-          marginTop: 40,
-          gap: 20,
-        }}
-      >
-        <Card
-          title="GT-50"
-          extra={<a onClick={openProductDetailDrawer}>Detay Sayfasına Git</a>}
+      <Tabs defaultActiveKey="1" items={items} onChange={onChangeHandler} />
+      <Spin spinning={isLoading}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, 340px)",
+            justifyContent: "center",
+            marginTop: 40,
+            gap: 20,
+          }}
         >
-          Yakamoz Prenses Gelinlik
-        </Card>
-      </div>
+          {data?.map((product, key) => (
+            <Card
+              key={key}
+              title={product?.productCode}
+              extra={
+                <>
+                  <a onClick={openProductDetailDrawer}>Detay </a>
+                  {" |"}
+                  <a onClick={openProductAvailableModalHandler}>
+                    {" "}
+                    Müsaitlik Kontrol
+                  </a>
+                </>
+              }
+            >
+              {product?.productName}
+            </Card>
+          ))}
+        </div>
+      </Spin>
       <ProductDetailDrawer
         showProductDetailDrawerState={showProductDetailDrawerState}
         setShowProductDetailDrawerState={setShowProductDetailDrawerState}
@@ -74,6 +111,10 @@ const ProductsPage = () => {
       <AddProductModalContainer
         showProductAddModalState={showProductAddModalState}
         setShowProductAddModalState={setShowProductAddModalState}
+      />
+      <AvailableProductDateRangeModalContainer
+        showProductAvailableModalState={showProductAvailableModalState}
+        setShowProductAvailableModalState={setShowProductAvailableModalState}
       />
     </MainCore>
   );

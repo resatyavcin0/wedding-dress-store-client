@@ -1,8 +1,15 @@
 import { Button, Form, Input, InputNumber } from "antd";
 import React from "react";
 import { Select, Space } from "antd";
+import { useQuery } from "@tanstack/react-query";
 
 const AddProductForm = () => {
+  const { isLoading, data } = useQuery([], {
+    queryKey: ["employees"],
+    queryFn: async () =>
+      await fetch(`http://localhost:8080/employees`).then((res) => res.json()),
+  });
+
   const onFinish = (values) => {
     console.log("Success:", values);
   };

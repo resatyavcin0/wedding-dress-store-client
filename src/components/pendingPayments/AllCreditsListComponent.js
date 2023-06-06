@@ -11,7 +11,6 @@ const AllCreditsListComponent = ({
 }) => {
   return (
     <>
-      <FilterComponent />
       <div
         style={{
           display: "grid",

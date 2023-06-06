@@ -1,6 +1,15 @@
 import React from "react";
 import MainCore from "../core/Main";
-import { Card, Col, DatePicker, Row, Select, Statistic, Switch } from "antd";
+import {
+  Card,
+  Col,
+  DatePicker,
+  Row,
+  Select,
+  Spin,
+  Statistic,
+  Switch,
+} from "antd";
 
 //icons
 import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
@@ -8,12 +17,7 @@ import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
 import { PieChart, Pie, BarChart, Bar, Cell, LabelList } from "recharts";
 import TableComponent from "../components/TableComponent";
 import locale from "antd/es/date-picker/locale/tr_TR";
-
-const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group B", value: 300 },
-];
+import { useQuery } from "@tanstack/react-query";
 
 const data2 = [
   {
@@ -40,6 +44,12 @@ const data2 = [
     pv: 4300,
     amt: 2100,
   },
+];
+
+const data3 = [
+  { name: "Group A", value: 400 },
+  { name: "Group B", value: 300 },
+  { name: "Group B", value: 300 },
 ];
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
@@ -71,6 +81,12 @@ const renderCustomizedLabel = ({
 };
 
 const HomePage = () => {
+  const { isLoading, data } = useQuery([], {
+    queryKey: ["employees"],
+    queryFn: async () =>
+      await fetch(`http://localhost:8080/employees`).then((res) => res.json()),
+  });
+
   return (
     <MainCore
       title={"Ana Sayfa"}
@@ -131,7 +147,7 @@ const HomePage = () => {
                 label={renderCustomizedLabel}
                 nameKey={"ekwlf"}
               >
-                {data.map((entry, index) => (
+                {data3.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}
@@ -158,29 +174,33 @@ const HomePage = () => {
         </Col>
       </Row>
 
-      <TableComponent
-        columns={[
-          {
-            title: "Ad Soyad",
-            dataIndex: "fullName",
-            key: "fullName",
-            render: (text) => <a>{text}</a>,
-          },
-          {
-            title: "Hesabı Aktif Mi?",
-            dataIndex: "isActiveAccount",
-            key: "isActiveAccount",
-            render: (text) => <Switch />,
-          },
-        ]}
-        data={[
-          {
-            key: "1",
-            fullName: "John Brown",
-            isActiveAccount: false,
-          },
-        ]}
-      />
+      <Spin spinning={isLoading}>
+        <TableComponent
+          columns={[
+            {
+              title: "Ad",
+              dataIndex: "firstName",
+              key: "id",
+              render: (text) => <a>{text}</a>,
+            },
+            {
+              title: "Soyad",
+              dataIndex: "lastName",
+              key: "id",
+              render: (text) => <a>{text}</a>,
+            },
+            {
+              title: "Hesabı Aktif Mi?",
+              dataIndex: "isActiveAccount",
+              key: "isActiveAccount",
+              render: (text, column) => (
+                <Switch checked={column?.isActiveAccount} />
+              ),
+            },
+          ]}
+          data={data}
+        />
+      </Spin>
     </MainCore>
   );
 };

@@ -1,8 +1,15 @@
 import { Button, Form, Input, InputNumber } from "antd";
 import React from "react";
 import { Select, Space } from "antd";
+import { useQuery } from "@tanstack/react-query";
 
 const GetPaidForm = () => {
+  const { isLoading, data } = useQuery([], {
+    queryKey: ["employees"],
+    queryFn: async () =>
+      await fetch(`http://localhost:8080/employees`).then((res) => res.json()),
+  });
+
   const onFinish = (values) => {
     console.log("Success:", values);
   };
@@ -19,9 +26,6 @@ const GetPaidForm = () => {
       name="basic"
       layout="vertical"
       style={{ margin: "40px 0" }}
-      initialValues={{
-        remember: true,
-      }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
@@ -32,7 +36,7 @@ const GetPaidForm = () => {
         rules={[
           {
             required: true,
-            message: "Please input your username!",
+            message: "Lütfen ödeme yapan kişiyi yazınız.",
           },
         ]}
       >
@@ -45,7 +49,7 @@ const GetPaidForm = () => {
         rules={[
           {
             required: true,
-            message: "Please input your password!",
+            message: "Lütfen ödeme tutarını yazınız.",
           },
         ]}
       >
@@ -57,19 +61,17 @@ const GetPaidForm = () => {
         rules={[
           {
             required: true,
-            message: "Please input your password!",
+            message: "Lütfen ödeme alan kişiyi yazınız.",
           },
         ]}
       >
         <Select
-          defaultValue="lucy"
+          loading={isLoading}
           onChange={handleChange}
-          options={[
-            { value: "jack", label: "Jack" },
-            { value: "lucy", label: "Lucy" },
-            { value: "Yiminghe", label: "yiminghe" },
-            { value: "disabled", label: "Disabled", disabled: true },
-          ]}
+          options={data?.map((employee) => ({
+            value: employee?.id,
+            label: employee?.firstName,
+          }))}
         />
       </Form.Item>
     </Form>

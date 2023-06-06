@@ -1,0 +1,61 @@
+{
+  "appointments": [
+    {
+      "id": "APPO-2023",
+      "product": "P-23",
+      "employee": "E-23",
+      "costumer": "C-23"
+    }
+  ],
+  "costumers": [
+    {
+      "id": "C-23",
+      "firstName": "Caner",
+      "primaryPhoneNumber": "+905343992091",
+      "secondaryPhoneNumber": "+905343992091",
+      "lastName": "KAYRA",
+      "address": "Sydney No. 1 Lake Park",
+      "appointments": ["APPO-202"]
+    }
+  ],
+  "products": [
+    {
+      "id": "P-23",
+      "productCode": "GT-50",
+      "productType": "GELINLIK",
+      "productName": "Yakamoz Prenses Gelinlik",
+      "productCount": 3,
+      "leasedDates": [
+        {
+          "appointment": "APPO-2023",
+          "firstDate": "2023-06-01",
+          "employee": "E-23"
+        }
+      ]
+    },
+    {
+      "id": "P-24",
+      "productCode": "KT-50",
+      "productType": "KINALIK",
+      "productName": "Yakamoz Prenses Kınalık",
+      "productCount": 3,
+      "leasedDates": []
+    },
+    {
+      "id": "P-25",
+      "productCode": "NT-50",
+      "productType": "NISANLIK",
+      "productName": "Yakamoz Prenses Nişanlık",
+      "productCount": 3,
+      "leasedDates": []
+    }
+  ],
+  "employees": [
+    {
+      "id": "E-23",
+      "firstName": "Ebru",
+      "lastName": "KARA",
+      "isActiveAccount": false
+    }
+  ]
+}
