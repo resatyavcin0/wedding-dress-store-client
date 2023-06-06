@@ -5,20 +5,23 @@ import { Modal } from "antd";
 const ModalComponent = ({
   title,
   openState,
-  setOpenState,
+  closeModalHandler,
   children,
   okButtonLabel,
   cancelButtonLabel,
+  styleProps,
+  width,
 }) => {
   return (
     <Modal
       title={title}
-      style={{ top: 20 }}
+      style={{ top: 20, ...styleProps }}
       open={openState}
-      onOk={() => setOpenState(false)}
-      onCancel={() => setOpenState(false)}
+      onOk={closeModalHandler}
+      onCancel={closeModalHandler}
       okText={okButtonLabel}
       cancelText={cancelButtonLabel}
+      width={width}
     >
       {children}
     </Modal>

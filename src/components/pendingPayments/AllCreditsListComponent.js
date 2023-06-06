@@ -4,7 +4,11 @@ import React from "react";
 import CreditComponent from "./CreditComponent";
 import FilterComponent from "../pendingPayments/FilterComponent";
 
-const AllCreditsListComponent = ({ allCredits }) => {
+const AllCreditsListComponent = ({
+  allCredits,
+  openGetPaymentModalHandler,
+  openInvoiceModalHandler,
+}) => {
   return (
     <>
       <FilterComponent />
@@ -18,7 +22,12 @@ const AllCreditsListComponent = ({ allCredits }) => {
         }}
       >
         {allCredits?.map((credit, key) => (
-          <CreditComponent key={key} credit={credit} />
+          <CreditComponent
+            openGetPaymentModalHandler={openGetPaymentModalHandler}
+            openInvoiceModalHandler={openInvoiceModalHandler}
+            key={key}
+            credit={credit}
+          />
         ))}
       </div>
     </>

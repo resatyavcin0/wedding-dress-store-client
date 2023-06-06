@@ -4,14 +4,12 @@ import React, { useState } from "react";
 import ModalComponent from "../../components/ModalComponent";
 import GetPaidForm from "../../components/forms/getPaidForm";
 
-const GetPaidModalContainer = () => {
-  const [showGetPaidModal, setShowGetPaidModal] = useState(false);
-
+const GetPaidModalContainer = ({ showGetPaidModal, setShowGetPaidModal }) => {
   return (
     <ModalComponent
       title="Ödeme Ekranı"
       openState={showGetPaidModal}
-      setOpenState={setShowGetPaidModal}
+      closeModalHandler={() => setShowGetPaidModal(false)}
       okButtonLabel={"Ödemeyi Gerçekleştir"}
       cancelButtonLabel={"Vazgeç"}
     >

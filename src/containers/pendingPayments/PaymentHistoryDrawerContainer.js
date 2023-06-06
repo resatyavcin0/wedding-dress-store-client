@@ -6,7 +6,7 @@ import DrawerComponent from "../../components/DrawerComponent";
 //utils
 import { Timeline } from "antd";
 
-const PaymentHistoryDrawerContainer = ({ payments }) => {
+const PaymentHistoryDrawerContainer = ({ payments = [] }) => {
   const [showPaymentHistoryDrawerState, setShowPaymentHistoryDrawerState] =
     useState(false);
 

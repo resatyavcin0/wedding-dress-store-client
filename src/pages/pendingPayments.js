@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MainCore from "../core/Main";
 
 //components
@@ -7,6 +7,7 @@ import AllCredistsListComponent from "../components/pendingPayments/AllCreditsLi
 //containers
 import PaymentHistoryDrawerContainer from "../containers/pendingPayments/PaymentHistoryDrawerContainer";
 import GetPaidModalContainer from "../containers/pendingPayments/GetPaidModalContainer";
+import InvoicePaidModalContainer from "../containers/pendingPayments/InvoicePaidModalContainer";
 
 const ALL_CREDITS = [
   {
@@ -126,6 +127,17 @@ const ALL_CREDITS = [
 ];
 
 const PendingPaymentsPage = () => {
+  const [showGetPaidModal, setShowGetPaidModal] = useState(false);
+  const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+
+  const openGetPaymentModalHandler = () => {
+    setShowGetPaidModal(true);
+  };
+
+  const openInvoiceModalHandler = () => {
+    setShowInvoiceModal(true);
+  };
+
   return (
     <MainCore
       title={"Bekleyen Taksitler"}
@@ -133,9 +145,20 @@ const PendingPaymentsPage = () => {
         "Bu sayfada tüm bekleyen taksit kayıtlarına ulaşabilir ve onları yönetebilirsiniz"
       }
     >
-      <AllCredistsListComponent allCredits={ALL_CREDITS} />
-      {/* <PaymentHistoryDrawerContainer />
-      <GetPaidModalContainer /> */}
+      <AllCredistsListComponent
+        openGetPaymentModalHandler={openGetPaymentModalHandler}
+        openInvoiceModalHandler={openInvoiceModalHandler}
+        allCredits={ALL_CREDITS}
+      />
+      {/* <PaymentHistoryDrawerContainer /> */}
+      <GetPaidModalContainer
+        showGetPaidModal={showGetPaidModal}
+        setShowGetPaidModal={setShowGetPaidModal}
+      />
+      <InvoicePaidModalContainer
+        showInvoiceModal={showInvoiceModal}
+        setShowInvoiceModal={setShowInvoiceModal}
+      />
     </MainCore>
   );
 };

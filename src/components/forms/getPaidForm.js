@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, InputNumber } from "antd";
 import React from "react";
 import { Select, Space } from "antd";
 
@@ -18,9 +18,7 @@ const GetPaidForm = () => {
     <Form
       name="basic"
       layout="vertical"
-      style={{
-        maxWidth: 600,
-      }}
+      style={{ margin: "40px 0" }}
       initialValues={{
         remember: true,
       }}
@@ -42,7 +40,7 @@ const GetPaidForm = () => {
       </Form.Item>
 
       <Form.Item
-        label="Password"
+        label="Ödeme Tutarı"
         name="password"
         rules={[
           {
@@ -51,7 +49,7 @@ const GetPaidForm = () => {
           },
         ]}
       >
-        <Input />
+        <InputNumber addonAfter={"₺"} style={{ width: "100%" }} />
       </Form.Item>
       <Form.Item
         label="Ödeme Alan"
