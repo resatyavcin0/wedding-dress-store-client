@@ -1,20 +1,13 @@
 import React from "react";
 import MainCore from "../core/Main";
-import { Card, Col, Row, Statistic, Switch } from "antd";
+import { Card, Col, DatePicker, Row, Select, Statistic, Switch } from "antd";
 
 //icons
 import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
 
-import {
-  PieChart,
-  Pie,
-  BarChart,
-  Bar,
-  Cell,
-  ResponsiveContainer,
-  LabelList,
-} from "recharts";
+import { PieChart, Pie, BarChart, Bar, Cell, LabelList } from "recharts";
 import TableComponent from "../components/TableComponent";
+import locale from "antd/es/date-picker/locale/tr_TR";
 
 const data = [
   { name: "Group A", value: 400 },
@@ -83,6 +76,23 @@ const HomePage = () => {
       title={"Ana Sayfa"}
       subTitle={"Bu sayfa özelinde istatiklerinizi takip edebilirsiniz."}
     >
+      <Row style={{ margin: "20px 0" }}>
+        <Col span={3}>
+          <Select
+            style={{ width: 100 }}
+            defaultValue="daily"
+            options={[
+              { value: "daily", label: "Günlük" },
+              { value: "monthly", label: "Aylık" },
+              { value: "yearly", label: "Yıllık" },
+            ]}
+          />
+        </Col>
+        <Col>
+          <DatePicker.RangePicker style={{ width: 300 }} locale={locale} />
+        </Col>
+      </Row>
+
       <Row gutter={16}>
         <Col span={12}>
           <Card>

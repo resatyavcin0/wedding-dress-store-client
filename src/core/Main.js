@@ -13,8 +13,6 @@ const MainCore = ({ title, subTitle, children }) => {
         icon: route?.icon,
       }
   );
-
-  console.log(items);
   const navigate = useNavigate();
   const [current, setCurrent] = useState("mail");
   const onClick = (e) => {

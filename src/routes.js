@@ -1,12 +1,10 @@
 //icons
 import {
   HomeOutlined,
-  SettingOutlined,
   BarcodeOutlined,
   TeamOutlined,
   WalletOutlined,
   ScheduleOutlined,
-  MehOutlined,
 } from "@ant-design/icons";
 
 //pages
@@ -19,8 +17,6 @@ import CostumersPage from "./pages/costumers";
 import PendingPaymentsPage from "./pages/pendingPayments";
 import ProductsPage from "./pages/products";
 import NotFound from "./pages/notFound";
-import EmployeesPage from "./pages/employees";
-import Settings from "./pages/settings";
 
 const ALL_ROUTES = [
   {
@@ -74,21 +70,6 @@ const ALL_ROUTES = [
     icon: <WalletOutlined />,
     path: "/pending-payments",
     element: <PendingPaymentsPage />,
-  },
-  {
-    label: "Çalışan İşlemleri",
-    key: "/employees",
-    icon: <MehOutlined />,
-    disabled: true,
-    path: "/employees",
-    element: <EmployeesPage />,
-  },
-  {
-    label: "Ayarlar",
-    key: "/settings",
-    icon: <SettingOutlined />,
-    path: "/settings",
-    element: <Settings />,
   },
 ];
 

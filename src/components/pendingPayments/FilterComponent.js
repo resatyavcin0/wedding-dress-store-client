@@ -1,9 +1,10 @@
 import React from "react";
 
-import { Checkbox, Input } from "antd";
+//utils
+import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
-const FilterComponent = ({ onChange }) => {
+const FilterComponent = () => {
   return (
     <>
       <Input
@@ -12,9 +13,6 @@ const FilterComponent = ({ onChange }) => {
         size="large"
         style={{ marginBottom: 20 }}
       />
-      <Checkbox onChange={onChange}>
-        Sadece Taksiti Kalan Kişileri Göster
-      </Checkbox>{" "}
     </>
   );
 };

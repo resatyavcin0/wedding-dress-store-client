@@ -21,14 +21,17 @@ const AllCreditsListComponent = ({
           gap: 20,
         }}
       >
-        {allCredits?.map((credit, key) => (
-          <CreditComponent
-            openGetPaymentModalHandler={openGetPaymentModalHandler}
-            openInvoiceModalHandler={openInvoiceModalHandler}
-            key={key}
-            credit={credit}
-          />
-        ))}
+        {allCredits?.map(
+          (credit, key) =>
+            !credit?.isFinish && (
+              <CreditComponent
+                openGetPaymentModalHandler={openGetPaymentModalHandler}
+                openInvoiceModalHandler={openInvoiceModalHandler}
+                key={key}
+                credit={credit}
+              />
+            )
+        )}
       </div>
     </>
   );

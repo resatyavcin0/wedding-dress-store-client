@@ -1,14 +1,10 @@
 import React from "react";
 
 //utils
-import { Button, Card, Space, Tag } from "antd";
-import { PrinterOutlined, WalletOutlined } from "@ant-design/icons";
+import { Button, Card } from "antd";
+import { WalletOutlined } from "@ant-design/icons";
 
-const CreditsComponent = ({
-  credit,
-  openGetPaymentModalHandler,
-  openInvoiceModalHandler,
-}) => {
+const CreditsComponent = ({ credit, openGetPaymentModalHandler }) => {
   return (
     <Card
       title={credit?.name}
@@ -16,30 +12,14 @@ const CreditsComponent = ({
       style={{
         width: "100%",
       }}
-      extra={
-        credit?.isFinish ? (
-          <Tag color="green"> TAMAMLANDI</Tag>
-        ) : (
-          <Tag color="red"> TAMAMLANMADI</Tag>
-        )
-      }
     >
-      {!credit?.isFinish ? (
-        <Space>
-          <Button
-            onClick={openGetPaymentModalHandler}
-            type="primary"
-            icon={<WalletOutlined />}
-          >
-            Ödeme Al
-          </Button>
-          <Button onClick={openInvoiceModalHandler} icon={<PrinterOutlined />}>
-            Ödeme Geçmişi
-          </Button>
-        </Space>
-      ) : (
-        <Button onClick={openInvoiceModalHandler} icon={<PrinterOutlined />}>
-          Ödeme Geçmişi
+      {!credit?.isFinish && (
+        <Button
+          onClick={openGetPaymentModalHandler}
+          type="primary"
+          icon={<WalletOutlined />}
+        >
+          Ödeme Al
         </Button>
       )}
     </Card>
