@@ -23,34 +23,18 @@ const RegisterPage = () => {
 
       <Form
         name="basic"
-        initialValues={{
-          remember: true,
-        }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         layout="vertical"
       >
         <Form.Item
-          label="İsim"
-          name="firstName"
+          label="Kullanıcı Adı"
+          name="username"
           rules={[
             {
               required: true,
-              message: "Please input your username!",
-            },
-          ]}
-          hasFeedback
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Soyisim"
-          name="lastName"
-          rules={[
-            {
-              required: true,
-              message: "Please input your username!",
+              message: "Lütfen boş bırakmayınız!",
             },
           ]}
           hasFeedback
@@ -59,18 +43,47 @@ const RegisterPage = () => {
         </Form.Item>
 
         <Form.Item
-          label="Telefon Numarası"
-          name="phoneNumber"
+          label="İsim"
+          name="firstName"
           rules={[
             {
               required: true,
-              message: "Lütfen telefon numaranızı boş bırakmayınız!",
+              message: "Lütfen boş bırakmayınız!",
             },
           ]}
           hasFeedback
         >
-          <Input defaultValue="26888888" />
+          <Input />
         </Form.Item>
+
+        <Form.Item
+          label="Soyisim"
+          name="lastName"
+          rules={[
+            {
+              required: true,
+              message: "Lütfen boş bırakmayınız!",
+            },
+          ]}
+          hasFeedback
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Şifre"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: "Lütfen boş bırakmayınız!",
+            },
+          ]}
+          hasFeedback
+        >
+          <Input.Password />
+        </Form.Item>
+
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Kaydol

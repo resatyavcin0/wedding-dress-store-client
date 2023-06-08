@@ -28,10 +28,21 @@ const disableDayHandler = (selectedValue, arr) => {
 const AvailableProductDateRangeModalContainer = ({
   showProductAvailableModalState,
   setShowProductAvailableModalState,
+  product,
 }) => {
-  const [selectedValue, setSelectedValue] = useState(() => dayjs("2023-06-25"));
+  const [selectedValue, setSelectedValue] = useState();
+
   const onSelect = (newValue) => {
     setSelectedValue(newValue);
+  };
+
+  const productDates = () => {
+    return product?.leasedDates.map((pro) => {
+      return {
+        firstDate: pro?.leasedDate,
+        secondDate: dayjs(pro?.leasedDate).add(2, "day").format("YYYY-MM-DD"),
+      };
+    });
   };
 
   return (
@@ -47,11 +58,7 @@ const AvailableProductDateRangeModalContainer = ({
         fullscreen={false}
         onSelect={onSelect}
         disabledDate={(selectedValue) =>
-          disableDayHandler(selectedValue, [
-            { firstDate: "2023-06-01", secondDate: "2023-06-07" },
-            { firstDate: "2023-06-12", secondDate: "2023-06-15" },
-            { firstDate: "2023-06-22", secondDate: "2023-06-25" },
-          ])
+          disableDayHandler(selectedValue, productDates())
         }
       />
     </ModalComponent>

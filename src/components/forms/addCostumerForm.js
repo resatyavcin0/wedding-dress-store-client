@@ -1,9 +1,9 @@
 import React from "react";
 
 //utils
-import { Select, Form, Input, InputNumber } from "antd";
+import { Form, Input } from "antd";
 
-const AddProductForm = () => {
+const AddCostumerForm = () => {
   const onFinish = (values) => {
     console.log("Success:", values);
   };
@@ -25,8 +25,8 @@ const AddProductForm = () => {
       autoComplete="off"
     >
       <Form.Item
-        label="Ürün İsmi"
-        name="productName"
+        label="Müşteri İsmi"
+        name="firstName"
         rules={[
           {
             required: true,
@@ -38,8 +38,8 @@ const AddProductForm = () => {
       </Form.Item>
 
       <Form.Item
-        label="Ürün Kodu"
-        name="productCode"
+        label="Müşteri Soyismi"
+        name="lastName"
         rules={[
           {
             required: true,
@@ -51,8 +51,8 @@ const AddProductForm = () => {
       </Form.Item>
 
       <Form.Item
-        label="Ürün Sayısı"
-        name="productCount"
+        label="Müşteri Birincil Telefonu"
+        name="primaryPhoneNumber"
         rules={[
           {
             required: true,
@@ -60,11 +60,12 @@ const AddProductForm = () => {
           },
         ]}
       >
-        <InputNumber />
+        <Input />
       </Form.Item>
+
       <Form.Item
-        label="Ürün Kategorisi"
-        name="productCategory"
+        label="Müşteri İkincil Telefonu"
+        name="secondaryPhoneNumber"
         rules={[
           {
             required: true,
@@ -72,18 +73,23 @@ const AddProductForm = () => {
           },
         ]}
       >
-        <Select
-          defaultValue={"GELINLIK"}
-          onChange={handleChange}
-          options={[
-            { value: "KINALIK", label: "KINALIK" },
-            { value: "KINALIK", label: "NİŞANLIK" },
-            { value: "GELINLIK", label: "GELİNLİK" },
-          ]}
-        />
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Müşteri Adresi"
+        name="address"
+        rules={[
+          {
+            required: true,
+            message: "Lütfen boş bırakmayınız.",
+          },
+        ]}
+      >
+        <Input.TextArea />
       </Form.Item>
     </Form>
   );
 };
 
-export default AddProductForm;
+export default AddCostumerForm;

@@ -18,37 +18,49 @@ const SigninPage = () => {
     >
       <Alert
         style={{ margin: "30px 0" }}
-        message="Bu kullanıcı mevcut değildir. Lütfen kaydolunuz."
+        message="Sistemde bir hata oluştu. Lütfen tekrar deneyiniz."
         type="error"
         showIcon
       />
 
       <Form
         name="basic"
-        initialValues={{
-          remember: true,
-        }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         layout="vertical"
       >
         <Form.Item
-          label="Telefon Numarası"
-          name="phoneNumber"
+          label="Kullanıcı Adı"
+          name="username"
           rules={[
             {
               required: true,
-              message: "Lütfen telefon numaranızı boş bırakmayınız!",
+              message: "Lütfen boş bırakmayınız!",
             },
           ]}
           hasFeedback
         >
-          <Input defaultValue="26888888" />
+          <Input />
         </Form.Item>
+
+        <Form.Item
+          label="Şifre"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: "Lütfen boş bırakmayınız!",
+            },
+          ]}
+          hasFeedback
+        >
+          <Input.Password />
+        </Form.Item>
+
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Giriş
+            Kaydol
           </Button>
         </Form.Item>
       </Form>

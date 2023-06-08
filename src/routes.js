@@ -8,7 +8,6 @@ import {
 } from "@ant-design/icons";
 
 //pages
-import VerifyPage from "./pages/verify";
 import RegisterPage from "./pages/register";
 import SigninPage from "./pages/signin";
 import HomePage from "./pages/home";
@@ -19,10 +18,6 @@ import ProductsPage from "./pages/products";
 import NotFound from "./pages/notFound";
 
 const ALL_ROUTES = [
-  {
-    path: "/verify",
-    element: <VerifyPage />,
-  },
   {
     path: "/register",
     element: <RegisterPage />,

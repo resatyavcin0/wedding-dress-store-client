@@ -85,36 +85,47 @@ const ProductsPage = () => {
           }}
         >
           {data?.map((product, key) => (
-            <Card
-              key={key}
-              title={product?.productCode}
-              extra={
-                <>
-                  <a onClick={openProductDetailDrawer}>Detay </a>
-                  {" |"}
-                  <a onClick={openProductAvailableModalHandler}>
-                    {" "}
-                    Müsaitlik Kontrol
-                  </a>
-                </>
-              }
-            >
-              {product?.productName}
-            </Card>
+            <>
+              <Card
+                key={key}
+                title={product?.productCode}
+                extra={
+                  <>
+                    <a onClick={openProductDetailDrawer}>Detay </a>
+                    {" |"}
+                    <a onClick={openProductAvailableModalHandler}>
+                      {" "}
+                      Müsaitlik Kontrol
+                    </a>
+                  </>
+                }
+              >
+                {product?.productName}
+              </Card>
+
+              <ProductDetailDrawer
+                showProductDetailDrawerState={showProductDetailDrawerState}
+                setShowProductDetailDrawerState={
+                  setShowProductDetailDrawerState
+                }
+                product={product}
+              />
+
+              <AvailableProductDateRangeModalContainer
+                showProductAvailableModalState={showProductAvailableModalState}
+                setShowProductAvailableModalState={
+                  setShowProductAvailableModalState
+                }
+                product={product}
+              />
+            </>
           ))}
         </div>
       </Spin>
-      <ProductDetailDrawer
-        showProductDetailDrawerState={showProductDetailDrawerState}
-        setShowProductDetailDrawerState={setShowProductDetailDrawerState}
-      />
+
       <AddProductModalContainer
         showProductAddModalState={showProductAddModalState}
         setShowProductAddModalState={setShowProductAddModalState}
-      />
-      <AvailableProductDateRangeModalContainer
-        showProductAvailableModalState={showProductAvailableModalState}
-        setShowProductAvailableModalState={setShowProductAvailableModalState}
       />
     </MainCore>
   );

@@ -4,6 +4,7 @@ import DrawerComponent from "../../components/DrawerComponent";
 const ProductDetailDrawer = ({
   showProductDetailDrawerState,
   setShowProductDetailDrawerState,
+  product,
 }) => {
   const closeProductDetailDrawerHandler = () => {
     setShowProductDetailDrawerState(false);
@@ -14,7 +15,7 @@ const ProductDetailDrawer = ({
       closeDrawerHandler={closeProductDetailDrawerHandler}
       showDrawerState={showProductDetailDrawerState}
     >
-      kwefnwe
+      {product?.productName}
     </DrawerComponent>
   );
 };

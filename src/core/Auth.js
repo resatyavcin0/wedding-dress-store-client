@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Card, Spin, Divider, Typography } from "antd";
+import { Card, Divider, Typography } from "antd";
 
 const Auth = ({ title, subTitle, loading, children }) => {
   return (
@@ -11,7 +11,7 @@ const Auth = ({ title, subTitle, loading, children }) => {
 
       <Divider />
 
-      <Spin spinning={loading}>{children}</Spin>
+      {children}
     </Card>
   );
 };

@@ -7,13 +7,20 @@ import TableComponent from "../components/TableComponent";
 //containers
 import InvoicePaidModalContainer from "../containers/pendingPayments/InvoicePaidModalContainer";
 import { useQuery } from "@tanstack/react-query";
-import { Spin } from "antd";
+import { Button, Spin } from "antd";
+import AddCostumerModalContainer from "../containers/product/AddCostumerModalContainer";
 
 const CostumersPage = () => {
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+  const [showCostumerAddModalState, setShowCostumerAddModalState] =
+    useState(false);
 
   const openInvoiceModalHandler = () => {
     setShowInvoiceModal(true);
+  };
+
+  const openCostumerAddModalHandler = () => {
+    setShowCostumerAddModalState(true);
   };
 
   const columns = [
@@ -62,7 +69,6 @@ const CostumersPage = () => {
       await fetch(`http://localhost:8080/costumers`).then((res) => res.json()),
   });
 
-  console.log(data);
   return (
     <MainCore
       title={"Müşteriler"}
@@ -70,6 +76,18 @@ const CostumersPage = () => {
         "Bu sayfada tüm müşteri kayıtlarına ulaşabilir ve onları yönetebilirsiniz"
       }
     >
+      <Button
+        style={{ marginBottom: 20 }}
+        type="primary"
+        onClick={openCostumerAddModalHandler}
+      >
+        Müşteri Ekle
+      </Button>
+
+      <AddCostumerModalContainer
+        showCostumerAddModalState={showCostumerAddModalState}
+        setShowCostumerAddModalState={setShowCostumerAddModalState}
+      />
       <Spin spinning={isLoading}>
         <TableComponent columns={columns} data={data} />
       </Spin>
