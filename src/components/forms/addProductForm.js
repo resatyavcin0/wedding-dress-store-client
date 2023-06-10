@@ -1,11 +1,12 @@
 import React from "react";
 
 //utils
-import { Select, Form, Input, InputNumber } from "antd";
+import { Select, Form, Input, InputNumber, Button } from "antd";
 
-const AddProductForm = () => {
+const AddProductForm = ({ onSubmitHandler }) => {
   const onFinish = (values) => {
-    console.log("Success:", values);
+    console.log(values);
+    onSubmitHandler(values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -17,6 +18,7 @@ const AddProductForm = () => {
 
   return (
     <Form
+      id="addProductForm"
       name="basic"
       layout="vertical"
       style={{ margin: "40px 0" }}
@@ -73,11 +75,10 @@ const AddProductForm = () => {
         ]}
       >
         <Select
-          defaultValue={"GELINLIK"}
           onChange={handleChange}
           options={[
             { value: "KINALIK", label: "KINALIK" },
-            { value: "KINALIK", label: "NİŞANLIK" },
+            { value: "NISANLIK", label: "NİŞANLIK" },
             { value: "GELINLIK", label: "GELİNLİK" },
           ]}
         />

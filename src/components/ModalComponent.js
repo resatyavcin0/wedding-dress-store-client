@@ -1,17 +1,18 @@
 import React from "react";
 
-import { Modal } from "antd";
+import { Button, Modal } from "antd";
 
-const ModalComponent = ({
-  title,
-  openState,
-  closeModalHandler,
-  children,
-  okButtonLabel,
-  cancelButtonLabel,
-  styleProps,
-  width,
-}) => {
+const ModalComponent = (props) => {
+  const {
+    title,
+    openState,
+    closeModalHandler,
+    children,
+    okButtonLabel,
+    cancelButtonLabel,
+    styleProps,
+    width,
+  } = props;
   return (
     <Modal
       title={title}
@@ -22,6 +23,7 @@ const ModalComponent = ({
       okText={okButtonLabel}
       cancelText={cancelButtonLabel}
       width={width}
+      {...props}
     >
       {children}
     </Modal>

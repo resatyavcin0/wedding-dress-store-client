@@ -1,4 +1,4 @@
-import { Menu } from "antd";
+import { Divider, Menu } from "antd";
 import React, { useState } from "react";
 import { Typography } from "antd";
 import ALL_ROUTES from "../routes";
@@ -22,13 +22,36 @@ const MainCore = ({ title, subTitle, children }) => {
 
   return (
     <div>
+      <Typography.Title
+        level={2}
+        style={{
+          fontFamily: "Lobster, cursive",
+          textAlign: "center",
+          color: "#3066BE",
+          marginBottom: 10,
+        }}
+      >
+        Çağlar Gelinlik
+      </Typography.Title>
+      <Typography.Title
+        level={5}
+        style={{
+          fontFamily: "Cabin, sans-serif",
+          textAlign: "center",
+          color: "#3066BE",
+          marginTop: 0,
+        }}
+      >
+        1995'ten bu yana gelinlikte bir numara
+      </Typography.Title>
+      <Divider style={{ marginBottom: 0 }} />
+
       <Menu
         onClick={onClick}
         selectedKeys={[...current]}
         mode="horizontal"
         items={items}
       />
-
       <div style={{ padding: 30 }}>
         <Typography.Title level={3} style={{ margin: 0 }}>
           {title}

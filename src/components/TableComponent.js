@@ -3,7 +3,13 @@ import { Table } from "antd";
 const TableComponent = ({ columns, data }) => {
   return (
     <>
-      <Table columns={columns} dataSource={data} />
+      <Table
+        pagination={{
+          defaultPageSize: 2,
+        }}
+        columns={columns}
+        dataSource={data}
+      />
     </>
   );
 };
