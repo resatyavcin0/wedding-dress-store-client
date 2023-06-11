@@ -3,27 +3,19 @@ import React from "react";
 //utils
 import { Select, Form, Input, InputNumber, Button } from "antd";
 
-const AddProductForm = ({ onSubmitHandler }) => {
+const AddProductForm = ({ form, messageApi }) => {
   const onFinish = (values) => {
-    console.log(values);
-    onSubmitHandler(values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    form.resetFields();
   };
 
   return (
     <Form
+      form={form}
       id="addProductForm"
       name="basic"
       layout="vertical"
       style={{ margin: "40px 0" }}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       <Form.Item
@@ -66,7 +58,7 @@ const AddProductForm = ({ onSubmitHandler }) => {
       </Form.Item>
       <Form.Item
         label="Ürün Kategorisi"
-        name="productCategory"
+        name="productType"
         rules={[
           {
             required: true,
@@ -75,7 +67,6 @@ const AddProductForm = ({ onSubmitHandler }) => {
         ]}
       >
         <Select
-          onChange={handleChange}
           options={[
             { value: "KINALIK", label: "KINALIK" },
             { value: "NISANLIK", label: "NİŞANLIK" },

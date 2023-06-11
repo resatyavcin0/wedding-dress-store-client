@@ -63,7 +63,7 @@ const CostumersPage = () => {
     },
   ];
 
-  const { isLoading, data } = useQuery([], {
+  const { isLoading, data, refetch } = useQuery([], {
     queryKey: ["costumers"],
     queryFn: async () =>
       await fetch(`http://localhost:8080/costumers`).then((res) => res.json()),
@@ -87,6 +87,7 @@ const CostumersPage = () => {
       <AddCostumerModalContainer
         showCostumerAddModalState={showCostumerAddModalState}
         setShowCostumerAddModalState={setShowCostumerAddModalState}
+        refetch={refetch}
       />
       <Spin spinning={isLoading}>
         <TableComponent columns={columns} data={data} />

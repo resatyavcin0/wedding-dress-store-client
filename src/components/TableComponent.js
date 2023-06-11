@@ -5,7 +5,7 @@ const TableComponent = ({ columns, data }) => {
     <>
       <Table
         pagination={{
-          defaultPageSize: 2,
+          defaultPageSize: 5,
         }}
         columns={columns}
         dataSource={data}

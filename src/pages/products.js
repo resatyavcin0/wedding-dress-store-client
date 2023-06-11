@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import MainCore from "../core/Main";
 
 //containers
@@ -85,9 +85,8 @@ const ProductsPage = () => {
           }}
         >
           {data?.map((product, key) => (
-            <>
+            <Fragment key={key}>
               <Card
-                key={key}
                 title={product?.productCode}
                 extra={
                   <>
@@ -118,7 +117,7 @@ const ProductsPage = () => {
                 }
                 product={product}
               />
-            </>
+            </Fragment>
           ))}
         </div>
       </Spin>
@@ -126,6 +125,7 @@ const ProductsPage = () => {
       <AddProductModalContainer
         showProductAddModalState={showProductAddModalState}
         setShowProductAddModalState={setShowProductAddModalState}
+        refetch={refetch}
       />
     </MainCore>
   );

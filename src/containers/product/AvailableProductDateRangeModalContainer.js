@@ -37,12 +37,16 @@ const AvailableProductDateRangeModalContainer = ({
   };
 
   const productDates = () => {
-    return product?.leasedDates.map((pro) => {
-      return {
-        firstDate: pro?.leasedDate,
-        secondDate: dayjs(pro?.leasedDate).add(2, "day").format("YYYY-MM-DD"),
-      };
-    });
+    return product?.leasedDates
+      ? product?.leasedDates?.map((pro) => {
+          return {
+            firstDate: pro?.leasedDate,
+            secondDate: dayjs(pro?.leasedDate)
+              .add(2, "day")
+              .format("YYYY-MM-DD"),
+          };
+        })
+      : [];
   };
 
   return (

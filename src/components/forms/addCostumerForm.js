@@ -3,22 +3,21 @@ import React from "react";
 //utils
 import { Form, Input } from "antd";
 
-const AddCostumerForm = () => {
+const AddCostumerForm = ({ form }) => {
   const onFinish = (values) => {
     console.log("Success:", values);
+    form.resetFields();
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
-  };
-
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
   };
 
   return (
     <Form
       name="basic"
       layout="vertical"
+      form={form}
+      id="addCostumerForm"
       style={{ margin: "40px 0" }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
