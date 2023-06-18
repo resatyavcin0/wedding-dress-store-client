@@ -16,11 +16,16 @@ import CostumersPage from "./pages/costumers";
 import PendingPaymentsPage from "./pages/pendingPayments";
 import ProductsPage from "./pages/products";
 import NotFound from "./pages/notFound";
+import VerifyPage from "./pages/verify";
 
 const ALL_ROUTES = [
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/verify",
+    element: <VerifyPage />,
   },
   {
     path: "/signin",

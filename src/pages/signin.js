@@ -1,6 +1,7 @@
 import React from "react";
 import Auth from "../core/Auth";
 import { Alert, Form, Input, Button } from "antd";
+import ReactPinInput from "react-pin-input";
 
 const SigninPage = () => {
   const onFinish = (values) => {
@@ -16,36 +17,21 @@ const SigninPage = () => {
         "Lütfen telefon numarasınızı BAŞINDA SIFIR olmadan eksiksiz şekilde tuşlayınız."
       }
     >
-      <Alert
-        style={{ margin: "30px 0" }}
-        message="Sistemde bir hata oluştu. Lütfen tekrar deneyiniz."
-        type="error"
-        showIcon
-      />
-
       <Form
         name="basic"
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         layout="vertical"
       >
         <Form.Item
-          label="Kullanıcı Adı"
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: "Lütfen boş bırakmayınız!",
-            },
-          ]}
-          hasFeedback
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Şifre"
+          style={{}}
           name="password"
           rules={[
             {
@@ -54,13 +40,11 @@ const SigninPage = () => {
             },
           ]}
           hasFeedback
-        >
-          <Input.Password />
-        </Form.Item>
+        ></Form.Item>
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Kaydol
+            Giriş Yap
           </Button>
         </Form.Item>
       </Form>
