@@ -1,6 +1,5 @@
 import React from "react";
 import { Col, Row, Select, DatePicker, Button } from "antd";
-import locale from "antd/es/date-picker/locale/tr_TR";
 
 const FilterAreaContainer = ({
   selectFilterContent,
@@ -52,7 +51,6 @@ const FilterAreaContainer = ({
           <DatePicker.RangePicker
             onChange={onDatePickerHandler}
             style={{ width: 300 }}
-            locale={locale}
           />
         </Col>
       )}

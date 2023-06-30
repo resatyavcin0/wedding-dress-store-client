@@ -6,9 +6,10 @@ import TableComponent from "../components/TableComponent";
 
 //containers
 import InvoicePaidModalContainer from "../containers/pendingPayments/InvoicePaidModalContainer";
-import { useQuery } from "@tanstack/react-query";
-import { Button, Spin } from "antd";
 import AddCostumerModalContainer from "../containers/product/AddCostumerModalContainer";
+
+import { Button, Spin } from "antd";
+import { useQuery } from "@tanstack/react-query";
 
 const CostumersPage = () => {
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
