@@ -19,18 +19,18 @@ import NotFound from "./pages/notFound";
 import VerifyPage from "./pages/verify";
 
 const ALL_ROUTES = [
-  {
-    path: "/register",
-    element: <RegisterPage />,
-  },
-  {
-    path: "/verify",
-    element: <VerifyPage />,
-  },
-  {
-    path: "/signin",
-    element: <SigninPage />,
-  },
+  // {
+  //   path: "/register",
+  //   element: <RegisterPage />,
+  // },
+  // {
+  //   path: "/verify",
+  //   element: <VerifyPage />,
+  // },
+  // {
+  //   path: "/signin",
+  //   element: <SigninPage />,
+  // },
   {
     path: "*",
     element: <NotFound />,
@@ -64,13 +64,13 @@ const ALL_ROUTES = [
     element: <ProductsPage />,
   },
 
-  {
-    label: "Bekleyen taksitler",
-    key: "/pending-payments",
-    icon: <WalletOutlined />,
-    path: "/pending-payments",
-    element: <PendingPaymentsPage />,
-  },
+  // {
+  //   label: "Bekleyen taksitler",
+  //   key: "/pending-payments",
+  //   icon: <WalletOutlined />,
+  //   path: "/pending-payments",
+  //   element: <PendingPaymentsPage />,
+  // },
 ];
 
 export default ALL_ROUTES;

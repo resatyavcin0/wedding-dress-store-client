@@ -13,10 +13,12 @@ import { useQuery } from "@tanstack/react-query";
 
 const CostumersPage = () => {
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+  const [bringCostumer, setBringCostumer] = useState({});
   const [showCostumerAddModalState, setShowCostumerAddModalState] =
     useState(false);
 
-  const openInvoiceModalHandler = () => {
+  const openInvoiceModalHandler = (column) => {
+    setBringCostumer(column);
     setShowInvoiceModal(true);
   };
 
@@ -31,7 +33,7 @@ const CostumersPage = () => {
       key: "id",
       render: (text, column) =>
         column?.appointments?.length > 0 ? (
-          <a onClick={openInvoiceModalHandler}>{text}</a>
+          <a onClick={() => openInvoiceModalHandler(column)}>{text}</a>
         ) : (
           text
         ),
@@ -67,7 +69,9 @@ const CostumersPage = () => {
   const { isLoading, data, refetch } = useQuery([], {
     queryKey: ["costumers"],
     queryFn: async () =>
-      await fetch(`http://localhost:8080/costumers`).then((res) => res.json()),
+      await fetch(`http://localhost:8443/costumer/costumer-list`).then((res) =>
+        res.json()
+      ),
   });
 
   return (
@@ -91,11 +95,12 @@ const CostumersPage = () => {
         refetch={refetch}
       />
       <Spin spinning={isLoading}>
-        <TableComponent columns={columns} data={data} />
+        <TableComponent columns={columns} data={data?.costumers} />
       </Spin>
       <InvoicePaidModalContainer
         showInvoiceModal={showInvoiceModal}
         setShowInvoiceModal={setShowInvoiceModal}
+        bringCostumer={bringCostumer}
       />
     </MainCore>
   );

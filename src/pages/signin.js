@@ -1,22 +1,20 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Auth from "../core/Auth";
-import { Alert, Form, Input, Button } from "antd";
+import { Alert, Form, Input, Button, message } from "antd";
 import ReactPinInput from "react-pin-input";
 
 const SigninPage = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
+  const [disableButton, setDisableButton] = useState(true);
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const onFinish = async (values) => {};
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
   return (
-    <Auth
-      title={"Giriş"}
-      subTitle={
-        "Lütfen telefon numarasınızı BAŞINDA SIFIR olmadan eksiksiz şekilde tuşlayınız."
-      }
-    >
+    <Auth title={"Giriş"}>
+      {contextHolder}
+
       <Form
         name="basic"
         style={{
@@ -30,21 +28,45 @@ const SigninPage = () => {
         autoComplete="off"
         layout="vertical"
       >
-        <Form.Item
-          style={{}}
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Lütfen boş bırakmayınız!",
-            },
-          ]}
-          hasFeedback
-        ></Form.Item>
+        <Form.Item style={{ width: "50%" }} name="replyOTP" hasFeedback>
+          <ReactPinInput
+            length={6}
+            initialValue=""
+            secret
+            secretDelay={600}
+            onChange={(value) => {
+              if (value.length === 6) {
+                setDisableButton(false);
+              } else {
+                setDisableButton(true);
+              }
+            }}
+            type="numeric"
+            style={{ display: "flex", justifyContent: "space-between" }}
+            inputMode="number"
+            inputStyle={{
+              borderColor: "gray",
+              borderRadius: 6,
+              fontSize: 18,
+              fontFamily: "Cabin, sans-serif",
+              marginBottom: 6,
+            }}
+            inputFocusStyle={{ borderColor: "#012937" }}
+            onComplete={(value, index) => {}}
+            autoSelect={true}
+            regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+          />
+        </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Giriş Yap
+          <Button
+            disabled={disableButton}
+            style={{ height: 50 }}
+            type="primary"
+            htmlType="submit"
+            block
+          >
+            Giriş
           </Button>
         </Form.Item>
       </Form>

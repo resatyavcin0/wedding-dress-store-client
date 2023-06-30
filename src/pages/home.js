@@ -4,6 +4,7 @@ import MainCore from "../core/Main";
 //containers
 import FilterAreaContainer from "../containers/home/FilterAreaContainer";
 import StatisticCardListContainer from "../containers/home/StatisticCardListContainer";
+import { Alert } from "antd";
 
 const HomePage = () => {
   const [selectCostumDate, setSelectCostumDate] = useState(false);
@@ -15,6 +16,12 @@ const HomePage = () => {
       title={"Ana Sayfa"}
       subTitle={"Bu sayfa özelinde istatiklerinizi takip edebilirsiniz."}
     >
+      <Alert
+        message="Bu sayfa, veriler eklendikçe açılacaktır. Bir süre verilerin hesaplanması gerekmektedir."
+        type="warning"
+        showIcon
+      />
+      {/* 
       <FilterAreaContainer
         selectFilterContent={selectFilterContent}
         setSelectFilterContent={setSelectFilterContent}
@@ -27,7 +34,7 @@ const HomePage = () => {
         selectFilterContent={selectFilterContent}
         isRefetchStatistic={isRefetchStatistic}
         setIsRefetchStatistic={setIsRefetchStatistic}
-      />
+      /> */}
     </MainCore>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import Auth from "../core/Auth";
-import { Alert, Button, Form, Input, Space } from "antd";
+import { Alert, Button, Form, Input } from "antd";
 
 const RegisterPage = () => {
   const onFinish = (values) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //components
 import ModalComponent from "../../components/ModalComponent";
@@ -19,25 +19,20 @@ const AddProductModalContainer = ({
 
   const { isLoading, isSuccess, isError, mutateAsync } = useMutation({
     mutationFn: () => {
-      return axios.post("http://localhost:8080/products", formFieldsState);
+      return axios.post(
+        "http://localhost:8443/product/create",
+        formFieldsState
+      );
     },
   });
-
-  if (isLoading) {
-    messageApi.open({
-      type: "loading",
-      content: "Verileriniz işleniyor...",
-      duration: 0,
-    });
-  }
-
-  const onSubmitHandler = async () => {
-    setShowProductAddModalState(false);
-    let a = Form.getFieldValue();
-    setFormFieldsState(Form.getFieldValue());
-    if (Object.keys(a).length === 0) return "";
-
-    await mutateAsync();
+  useEffect(() => {
+    if (isLoading) {
+      messageApi.open({
+        type: "loading",
+        content: "Verileriniz işleniyor...",
+        duration: 0,
+      });
+    }
 
     if (isSuccess) {
       messageApi.destroy();
@@ -49,6 +44,15 @@ const AddProductModalContainer = ({
       messageApi.destroy();
       messageApi.error("Hata");
     }
+  }, [isLoading, isSuccess, isError]);
+
+  const onSubmitHandler = async () => {
+    setShowProductAddModalState(false);
+    let a = Form.getFieldValue();
+    setFormFieldsState(Form.getFieldValue());
+    if (Object.keys(a).length === 0) return "";
+
+    await mutateAsync();
   };
 
   return (

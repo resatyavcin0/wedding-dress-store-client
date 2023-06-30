@@ -23,7 +23,7 @@ const ProductsPage = () => {
     queryKey: ["products"],
     queryFn: async () =>
       await fetch(
-        `http://localhost:8080/products?productType=${typeOfProductState}`
+        `http://localhost:8443/product/groupByCategory?productCategory=${typeOfProductState}`
       ).then((res) => res.json()),
   });
 
@@ -84,39 +84,30 @@ const ProductsPage = () => {
             gap: 20,
           }}
         >
-          {data?.map((product, key) => (
+          {data?.data?.map((product, key) => (
             <Fragment key={key}>
-              <Card
-                title={product?.productCode}
-                extra={
-                  <>
-                    <a onClick={openProductDetailDrawer}>Detay </a>
-                    {" |"}
-                    <a onClick={openProductAvailableModalHandler}>
-                      {" "}
-                      Müsaitlik Kontrol
-                    </a>
-                  </>
-                }
-              >
-                {product?.productName}
+              <Card title={product?.productCode}>
+                <a onClick={openProductAvailableModalHandler}>
+                  {" "}
+                  {product?._id}({product?.count})
+                </a>
               </Card>
 
-              <ProductDetailDrawer
+              {/* <ProductDetailDrawer
                 showProductDetailDrawerState={showProductDetailDrawerState}
                 setShowProductDetailDrawerState={
                   setShowProductDetailDrawerState
                 }
                 product={product}
-              />
+              /> */}
 
-              <AvailableProductDateRangeModalContainer
+              {/* <AvailableProductDateRangeModalContainer
                 showProductAvailableModalState={showProductAvailableModalState}
                 setShowProductAvailableModalState={
                   setShowProductAvailableModalState
                 }
                 product={product}
-              />
+              /> */}
             </Fragment>
           ))}
         </div>

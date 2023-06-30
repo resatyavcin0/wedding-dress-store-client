@@ -32,33 +32,8 @@ const AddProductForm = ({ form, messageApi }) => {
       </Form.Item>
 
       <Form.Item
-        label="Ürün Kodu"
-        name="productCode"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="Ürün Sayısı"
-        name="productCount"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item
         label="Ürün Kategorisi"
-        name="productType"
+        name="productCategory"
         rules={[
           {
             required: true,

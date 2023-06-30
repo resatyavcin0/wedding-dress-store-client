@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //components
 import ModalComponent from "../../components/ModalComponent";
@@ -13,43 +13,45 @@ const AddCostumerModalContainer = ({
   setShowCostumerAddModalState,
   refetch,
 }) => {
-  const [Form] = useForm();
   const [messageApi, contextHolder] = message.useMessage();
+  const [Form] = useForm();
   const [formFieldsState, setFormFieldsState] = useState();
 
   const { isLoading, isSuccess, isError, mutateAsync } = useMutation({
     mutationFn: () => {
-      return axios.post("http://localhost:8080/costumers", formFieldsState);
+      return axios.post(
+        "http://localhost:8443/costumer/create",
+        formFieldsState
+      );
     },
   });
 
-  if (isLoading) {
-    messageApi.open({
-      type: "loading",
-      content: "Verileriniz işleniyor...",
-      duration: 0,
-    });
-  }
+  useEffect(() => {
+    if (isLoading) {
+      messageApi.open({
+        type: "loading",
+        content: "Verileriniz işleniyor...",
+        duration: 0,
+      });
+    }
 
+    if (isSuccess) {
+      messageApi.destroy();
+      messageApi.success("Verileriniz başarı ile işlendi").then((data) => {
+        refetch();
+      });
+    }
+    if (isError) {
+      messageApi.destroy();
+      messageApi.error("Hata");
+    }
+  }, [isLoading, isSuccess, isError]);
   const onSubmitHandler = async () => {
     setShowCostumerAddModalState(false);
     let a = Form.getFieldValue();
     setFormFieldsState(Form.getFieldValue());
     if (Object.keys(a).length === 0) return "";
     await mutateAsync();
-
-    if (isSuccess) {
-      messageApi.destroy();
-      messageApi.success("Verileriniz başarı ile işlendi").then(() => {
-        refetch();
-      });
-    }
-    if (isError) {
-      messageApi.destroy();
-      messageApi.error("Hata").then(() => {
-        refetch();
-      });
-    }
   };
   return (
     <ModalComponent

@@ -3,10 +3,12 @@ import React from "react";
 //components
 import ModalComponent from "../../components/ModalComponent";
 import { Alert, Badge, Card, Descriptions, Space, Typography } from "antd";
+import { useQuery } from "@tanstack/react-query";
 
 const InvoicePaidModalContainer = ({
   showInvoiceModal,
   setShowInvoiceModal,
+  bringCostumer,
 }) => {
   return (
     <ModalComponent
@@ -36,16 +38,17 @@ const InvoicePaidModalContainer = ({
           size={"small"}
           style={{ marginBottom: 20 }}
         >
-          <Descriptions.Item label="Ad Soyad">Mehmet Aksu</Descriptions.Item>
+          <Descriptions.Item label="Ad Soyad">
+            {bringCostumer?.firstName} {bringCostumer?.lastName}
+          </Descriptions.Item>
           <Descriptions.Item label="Birincil Telefon Numarası">
-            +90 (545) 676 ** **
+            {bringCostumer?.primaryPhoneNumber}
           </Descriptions.Item>
           <Descriptions.Item label="İkincil Telefon Numarası">
-            +90 (545) 676 ** **
+            {bringCostumer?.secondaryPhoneNumber}
           </Descriptions.Item>
           <Descriptions.Item label="Adres">
-            Mehmet Akif, Kale Cad, Mehmet Akif Mahallesi Fatih Bulv, İpekyolu
-            Sk. No:34, 34920 Sultanbeyli/İstanbul
+            {bringCostumer?.address}
           </Descriptions.Item>
         </Descriptions>
 
@@ -85,22 +88,7 @@ const InvoicePaidModalContainer = ({
           size={"small"}
           style={{ marginBottom: 20 }}
         >
-          <Descriptions.Item label="Ödeme Durumu">
-            <Badge status="processing" text="Devam Ediyor" />
-          </Descriptions.Item>
           <Descriptions.Item label="Toplam Tutar">3500₺</Descriptions.Item>
-          <Descriptions.Item label="Kapora">1000₺</Descriptions.Item>
-          <Descriptions.Item label="Taksitler">
-            <Typography.Text strong>1. Taksit:</Typography.Text> Mehmet Aksu -
-            1000₺ <br />
-            <Typography.Text strong>2. Taksit:</Typography.Text> Mehmet Aksu -
-            1000₺ <br />
-          </Descriptions.Item>
-          <Descriptions.Item label="Kalan Tutar">
-            <Typography.Text strong mark>
-              3000₺
-            </Typography.Text>
-          </Descriptions.Item>
         </Descriptions>
         <Alert
           type="warning"
