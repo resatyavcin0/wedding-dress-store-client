@@ -84,12 +84,14 @@ const ProductsPage = () => {
             gap: 20,
           }}
         >
+          {data?.data?.length === 0 && "Ürün Bulunmamaktadır."}
+
           {data?.data?.map((product, key) => (
             <Fragment key={key}>
               <Card title={product?.productCode}>
                 <a onClick={openProductAvailableModalHandler}>
                   {" "}
-                  {product?._id}({product?.count})
+                  {product?.productName[0]}({product?.count})
                 </a>
               </Card>
 

@@ -1,43 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //utils
 import {
-  AutoComplete,
   Checkbox,
   DatePicker,
   Form,
   Input,
+  InputNumber,
+  Radio,
   Select,
   Space,
   Switch,
 } from "antd";
 
-const mockVal = (str, repeat = 1) => ({
-  value: str.repeat(repeat),
-});
+const AddAppointmentForm = ({
+  form,
+  istanbulWedding,
+  setIstanbulWedding,
+  isPackage,
+  setIsPackage,
+}) => {
+  const [datas, setDatas] = useState([]);
+  const [typeOfProductState, setTypeOfProductState] = useState("GELINLIK");
 
-const AddAppointmentForm = () => {
-  const [value, setValue] = useState("");
-  const [options, setOptions] = useState([]);
-  const [anotherOptions, setAnotherOptions] = useState([]);
-  const getPanelValue = (searchText) =>
-    !searchText
-      ? []
-      : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)];
+  useEffect(() => {
+    const a = async () => {
+      const c = await fetch(
+        `http://localhost:8443/product/groupByCategory?productCategory=${typeOfProductState}`
+      );
+      return c.json();
+    };
 
-  const onSelect = (data) => {
-    console.log("onSelect", data);
-  };
+    a().then((data) => {
+      setDatas(
+        data?.data?.map((item) => {
+          return { label: item.productName[0], value: item._id };
+        })
+      );
+    });
 
-  const onChange = (data) => {
-    setValue(data);
-  };
+    return () => {
+      setDatas([]);
+    };
+  }, [typeOfProductState]);
 
   const onFinish = (values) => {
+    form.resetFields();
     console.log("Success:", values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+  };
+
+  const switchHandlerPackage = (e) => {
+    setIsPackage(e.target.checked);
+  };
+
+  const switchHandlerIstanbul = (e) => {
+    setIstanbulWedding(e.target.checked);
   };
 
   return (
@@ -48,24 +68,49 @@ const AddAppointmentForm = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
+      form={form}
     >
-      <Space size={200} style={{ marginBottom: 20 }}>
+      <Space size={120} style={{ marginBottom: 20 }}>
         <Space.Compact>
-          <Switch
-            style={{ marginRight: 10 }}
-            checkedChildren="2. El"
-            unCheckedChildren="Sıfır"
-          />
-          <Switch checkedChildren="Kiralık" unCheckedChildren="Satılık" />
+          <Form.Item name="isItUsed">
+            <Switch
+              style={{ marginRight: 10 }}
+              checkedChildren="2. El"
+              unCheckedChildren="Sıfır"
+            />
+          </Form.Item>
+
+          <Form.Item name="isItForRent">
+            <Switch checkedChildren="Kiralık" unCheckedChildren="Satılık" />
+          </Form.Item>
         </Space.Compact>
-        <Space.Compact block>
-          <Checkbox>Ürün paket mi?</Checkbox>
+        <Space.Compact
+          block
+          style={{ display: "flex", flexDirection: "column" }}
+        >
+          <Radio.Group
+            defaultValue={typeOfProductState}
+            buttonStyle="solid"
+            style={{ marginBottom: 12 }}
+            onChange={(e) => {
+              setTypeOfProductState(e.target.value);
+            }}
+          >
+            <Radio.Button value="GELINLIK">GELİNLİK</Radio.Button>
+            <Radio.Button value="NISANLIK">NİŞANLIK</Radio.Button>
+            <Radio.Button value="KINALIK">KINALIK</Radio.Button>
+          </Radio.Group>
+
+          <Checkbox onChange={switchHandlerPackage}>Ürün paket mi?</Checkbox>
+          <Checkbox onChange={switchHandlerIstanbul} style={{ marginTop: 10 }}>
+            İstanbul'da tekrar işlem olacak mı?
+          </Checkbox>
         </Space.Compact>
       </Space>
 
       <Form.Item
-        label="Randevu Açan Eleman"
-        name="employee"
+        label="Ürün"
+        name="product"
         rules={[
           {
             required: true,
@@ -74,29 +119,72 @@ const AddAppointmentForm = () => {
         ]}
       >
         <Select
-          defaultValue={"GELINLIK"}
-          options={[
-            { value: "KINALIK", label: "KINALIK" },
-            { value: "KINALIK", label: "NİŞANLIK" },
-            { value: "GELINLIK", label: "GELİNLİK" },
-          ]}
-        />
-      </Form.Item>
-
-      <Form.Item label="Müşteri Adı Soyadı" name="costumer">
-        <AutoComplete
-          value={value}
-          options={anotherOptions}
           style={{ width: "100%" }}
-          onSearch={(text) => setAnotherOptions(getPanelValue(text))}
-          onChange={onChange}
-          placeholder="control mode"
+          showSearch
+          placeholder="Ürün seçiniz"
+          options={[...datas]}
         />
       </Form.Item>
 
+      {isPackage && (
+        <>
+          <Form.Item
+            label="Paket Gidiş Günü"
+            name="packageDepartureDate"
+            rules={[
+              {
+                required: true,
+                message: "Lütfen boş bırakmayınız.",
+              },
+            ]}
+          >
+            <DatePicker placeholder={false} style={{ width: "100%" }} />
+          </Form.Item>
+          <Form.Item
+            label="Paket Geliş Günü"
+            name="packageArrivalDate"
+            rules={[
+              {
+                required: true,
+                message: "Lütfen boş bırakmayınız.",
+              },
+            ]}
+          >
+            <DatePicker placeholder={false} style={{ width: "100%" }} />
+          </Form.Item>
+        </>
+      )}
       <Form.Item
         label="Event Günü"
-        name="eventDay"
+        name="eventDate"
+        rules={[
+          {
+            required: true,
+            message: "Lütfen boş bırakmayınız.",
+          },
+        ]}
+      >
+        <DatePicker placeholder={false} style={{ width: "100%" }} />
+      </Form.Item>
+
+      {istanbulWedding && (
+        <Form.Item
+          label="İkinci Event Günü"
+          name="secondEventDate"
+          rules={[
+            {
+              required: true,
+              message: "Lütfen boş bırakmayınız.",
+            },
+          ]}
+        >
+          <DatePicker placeholder={false} style={{ width: "100%" }} />
+        </Form.Item>
+      )}
+
+      <Form.Item
+        label="Birincil Prova Günü"
+        name="firstRehearsalDate"
         rules={[
           {
             required: true,
@@ -131,6 +219,19 @@ const AddAppointmentForm = () => {
         ]}
       >
         <Input.TextArea />
+      </Form.Item>
+
+      <Form.Item
+        label="Toplam Miktar"
+        name="totalAmount"
+        rules={[
+          {
+            required: true,
+            message: "Lütfen boş bırakmayınız.",
+          },
+        ]}
+      >
+        <InputNumber prefix="₺" style={{ width: "100%" }} />
       </Form.Item>
     </Form>
   );

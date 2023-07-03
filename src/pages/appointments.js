@@ -1,112 +1,74 @@
-import React, { useState } from "react";
+import React from "react";
 import MainCore from "../core/Main";
 import { Badge, Calendar } from "antd";
-
+import moment from "moment";
 import "./appointment.css";
-import AddAppointmentModalContainer from "../containers/appointment/AddAppointmentModalContainer";
-const getListData = (value) => {
-  let listData;
-  switch (value.date()) {
-    case 8:
-      listData = [
-        {
-          type: "warning",
-          content: "This is warning event.",
-        },
-        {
-          type: "success",
-          content: "This is usual event.",
-        },
-      ];
-      break;
-    case 10:
-      listData = [
-        {
-          type: "warning",
-          content: "This is warning event.",
-        },
-        {
-          type: "success",
-          content: "This is usual event.",
-        },
-        {
-          type: "error",
-          content: "This is error event.",
-        },
-      ];
-      break;
-    case 15:
-      listData = [
-        {
-          type: "warning",
-          content: "This is warning event",
-        },
-        {
-          type: "success",
-          content: "This is very long usual event。。....",
-        },
-        {
-          type: "error",
-          content: "This is error event 1.",
-        },
-        {
-          type: "error",
-          content: "This is error event 2.",
-        },
-        {
-          type: "error",
-          content: "This is error event 3.",
-        },
-        {
-          type: "error",
-          content: "This is error event 4.",
-        },
-      ];
-      break;
-    default:
-  }
-  return listData || [];
-};
-const getMonthData = (value) => {
-  if (value.month() === 8) {
-    return 1394;
-  }
-};
+import { useQuery } from "@tanstack/react-query";
 
 const AppointmentsPage = () => {
-  const [showAppointmentFormModal, setShowAppointmentFormModal] =
-    useState(false);
+  const { isLoading, data, refetch, isSuccess } = useQuery({
+    queryKey: ["appointment"],
+    queryFn: async () =>
+      await fetch(`http://localhost:8443/appointment/list`).then((res) =>
+        res.json()
+      ),
+  });
 
-  const monthCellRender = (value) => {
-    const num = getMonthData(value);
-    return num ? (
-      <div className="notes-month">
-        <section>{num}</section>
-        <span>Backlog number</span>
-      </div>
-    ) : null;
-  };
+  const forFirstRehearsalDate = (value) =>
+    data?.data?.filter(
+      (item) =>
+        moment(item.firstRehearsalDate).toDate().getMonth() === value.month() &&
+        moment(item.firstRehearsalDate).toDate().getDate() === value.date() &&
+        moment(item.firstRehearsalDate).toDate().getFullYear() === value.year()
+    );
+
+  const forSecondRehearsalDate = (value) =>
+    data?.data?.filter(
+      (item) =>
+        moment(item.secondRehearsalDate).toDate().getMonth() ===
+          value.month() &&
+        moment(item.secondRehearsalDate).toDate().getDate() === value.date() &&
+        moment(item.secondRehearsalDate).toDate().getFullYear() === value.year()
+    );
+
+  const forPackageArrivalDate = (value) =>
+    data?.data?.filter(
+      (item) =>
+        moment(item.packageArrivalDate).toDate().getMonth() === value.month() &&
+        moment(item.packageArrivalDate).toDate().getDate() === value.date() &&
+        moment(item.packageArrivalDate).toDate().getFullYear() === value.year()
+    );
+
   const dateCellRender = (value) => {
-    const listData = getListData(value);
     return (
       <ul className="events">
-        {listData.map((item) => (
-          <li key={item.content}>
-            <Badge status={item.type} text={item.content} />
-          </li>
-        ))}
+        {forFirstRehearsalDate(value)?.length !== 0 && (
+          <Badge color="blue">
+            🎃 Prova: {forFirstRehearsalDate(value)?.length}
+          </Badge>
+        )}
+
+        {forSecondRehearsalDate(value)?.length !== 0 && (
+          <Badge color="blue">
+            🎃 2. Prova: {forSecondRehearsalDate(value)?.length}
+          </Badge>
+        )}
+
+        {forPackageArrivalDate(value)?.length !== 0 && (
+          <Badge color="blue">
+            🈯️ Teslim: {forPackageArrivalDate(value)?.length}
+          </Badge>
+        )}
       </ul>
     );
   };
   const cellRender = (current, info) => {
-    if (info.type === "date") return dateCellRender(current);
-    if (info.type === "month") return monthCellRender(current);
+    if (info.type === "date" && !isLoading) return dateCellRender(current);
     return info.originNode;
   };
 
   const onChangeHandler = (day) => {
     console.log(day);
-    setShowAppointmentFormModal(true);
   };
 
   return (
@@ -117,11 +79,6 @@ const AppointmentsPage = () => {
       }
     >
       <Calendar onChange={onChangeHandler} cellRender={cellRender} />
-
-      <AddAppointmentModalContainer
-        showAppointmentAddModalState={showAppointmentFormModal}
-        setShowAppointmentAddModalState={setShowAppointmentFormModal}
-      />
     </MainCore>
   );
 };

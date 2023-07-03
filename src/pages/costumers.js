@@ -10,12 +10,16 @@ import AddCostumerModalContainer from "../containers/product/AddCostumerModalCon
 
 import { Button, Spin } from "antd";
 import { useQuery } from "@tanstack/react-query";
+import AddAppointmentModalContainer from "../containers/appointment/AddAppointmentModalContainer";
 
 const CostumersPage = () => {
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
   const [bringCostumer, setBringCostumer] = useState({});
   const [showCostumerAddModalState, setShowCostumerAddModalState] =
     useState(false);
+  const [showAppointmentFormModal, setShowAppointmentFormModal] =
+    useState(false);
+  const [costu, setCostu] = useState(false);
 
   const openInvoiceModalHandler = (column) => {
     setBringCostumer(column);
@@ -64,6 +68,23 @@ const CostumersPage = () => {
       dataIndex: "address",
       key: "id",
     },
+    {
+      title: "Aksiyonlar",
+      dataIndex: "actions",
+      key: "action",
+      render: (text, column) => {
+        return (
+          <Button
+            onClick={() => {
+              setShowAppointmentFormModal(true);
+              setCostu(column?._id);
+            }}
+          >
+            Randevu Al
+          </Button>
+        );
+      },
+    },
   ];
 
   const { isLoading, data, refetch } = useQuery([], {
@@ -101,6 +122,11 @@ const CostumersPage = () => {
         showInvoiceModal={showInvoiceModal}
         setShowInvoiceModal={setShowInvoiceModal}
         bringCostumer={bringCostumer}
+      />
+      <AddAppointmentModalContainer
+        costu={costu}
+        showAppointmentAddModalState={showAppointmentFormModal}
+        setShowAppointmentAddModalState={setShowAppointmentFormModal}
       />
     </MainCore>
   );
