@@ -31,14 +31,6 @@ const AppointmentsPage = () => {
         moment(item.secondRehearsalDate).toDate().getFullYear() === value.year()
     );
 
-  const forPackageArrivalDate = (value) =>
-    data?.data?.filter(
-      (item) =>
-        moment(item.packageArrivalDate).toDate().getMonth() === value.month() &&
-        moment(item.packageArrivalDate).toDate().getDate() === value.date() &&
-        moment(item.packageArrivalDate).toDate().getFullYear() === value.year()
-    );
-
   const dateCellRender = (value) => {
     return (
       <ul className="events">
@@ -51,12 +43,6 @@ const AppointmentsPage = () => {
         {forSecondRehearsalDate(value)?.length !== 0 && (
           <Badge color="blue">
             🎃 2. Prova: {forSecondRehearsalDate(value)?.length}
-          </Badge>
-        )}
-
-        {forPackageArrivalDate(value)?.length !== 0 && (
-          <Badge color="blue">
-            🈯️ Teslim: {forPackageArrivalDate(value)?.length}
           </Badge>
         )}
       </ul>

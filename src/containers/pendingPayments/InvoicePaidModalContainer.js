@@ -1,15 +1,61 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //components
 import ModalComponent from "../../components/ModalComponent";
-import { Alert, Badge, Card, Descriptions, Space, Typography } from "antd";
-import { useQuery } from "@tanstack/react-query";
+import {
+  Alert,
+  Badge,
+  Card,
+  Checkbox,
+  Descriptions,
+  Space,
+  Spin,
+  Switch,
+  Typography,
+} from "antd";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { Tabs } from "antd";
+import { useState } from "react";
+import moment from "moment";
+import axios from "axios";
 
 const InvoicePaidModalContainer = ({
   showInvoiceModal,
   setShowInvoiceModal,
   bringCostumer,
 }) => {
+  const [selectedAppointment, setSelectedAppointment] = useState();
+
+  const { data: dataAppointment } = useQuery([selectedAppointment], {
+    queryKey: ["dşwkefnm"],
+    queryFn: async () =>
+      await fetch(
+        `http://localhost:8443/appointment/get/${selectedAppointment}`
+      ).then((res) => res.json()),
+  });
+
+  const findActive = () =>
+    dataAppointment?.data?.product?.history?.find((item) => item.isActive);
+
+  console.log(findActive());
+
+  const { isLoading, isSuccess, isError, mutateAsync } = useMutation({
+    mutationFn: () => {
+      return axios.patch(
+        `http://localhost:8443/product/receive/${
+          dataAppointment?.data?.product?._id
+        }/${findActive()._id}`
+      );
+    },
+  });
+
+  useEffect(() => {
+    setSelectedAppointment(bringCostumer?.appointments?.[0]);
+  }, [showInvoiceModal, selectedAppointment]);
+
+  const onChange = (key) => {
+    setSelectedAppointment(key);
+  };
   return (
     <ModalComponent
       title={"E-ÇAĞLAR DETAY GÖRÜNTÜLEME"}
@@ -32,6 +78,13 @@ const InvoicePaidModalContainer = ({
           </Space>
         }
       >
+        <Checkbox onChange={() => mutateAsync()}>Ürün Teslim Alındı</Checkbox>
+        <Tabs
+          items={bringCostumer?.appointments?.map((item, i) => {
+            return { key: item, label: `${i + 1}. Randevu` };
+          })}
+          onChange={onChange}
+        />
         <Descriptions
           bordered
           title="Müşteri Bilgileri"
@@ -58,9 +111,12 @@ const InvoicePaidModalContainer = ({
           size={"small"}
           style={{ marginBottom: 20 }}
         >
-          <Descriptions.Item label="Ürün Tipi">Gelinlik</Descriptions.Item>
-          <Descriptions.Item label="Ürün Kodu">GT-50</Descriptions.Item>
-          <Descriptions.Item label="Ürün Fiyatı">3500₺</Descriptions.Item>
+          <Descriptions.Item label="Ürün Tipi">
+            {dataAppointment?.data?.product?.productCategory}{" "}
+          </Descriptions.Item>
+          <Descriptions.Item label="Ürün Adı">
+            {dataAppointment?.data?.product?.productName}{" "}
+          </Descriptions.Item>
         </Descriptions>
 
         <Descriptions
@@ -69,27 +125,34 @@ const InvoicePaidModalContainer = ({
           size={"small"}
           style={{ marginBottom: 20 }}
         >
-          <Descriptions.Item label="Event Günü">22/09/2000</Descriptions.Item>
-          <Descriptions.Item label="Birincil Prova Günü">
-            22/09/2000
+          <Descriptions.Item label="Event Günü">
+            {moment(dataAppointment?.data?.eventDate).format("DD/MM/YYYY")}
           </Descriptions.Item>
-          <Descriptions.Item label="İkincil Prova Günü">-</Descriptions.Item>
-          <Descriptions.Item label="Ürün Teslim Tarihi">
-            22/09/2000
+          <Descriptions.Item label="Birincil Prova Günü">
+            {moment(dataAppointment?.data?.firstRehearsalDate).format(
+              "DD/MM/YYYY"
+            )}
+          </Descriptions.Item>
+          <Descriptions.Item label="İkincil Prova Günü">
+            {moment(dataAppointment?.data?.secondRehearsalDate).format(
+              "DD/MM/YYYY"
+            )}
           </Descriptions.Item>
           <Descriptions.Item label="Ürün Veriş Tarihi">
-            22/09/2000
+            {moment(dataAppointment?.data?.packageArrivalDate).format(
+              "DD/MM/YYYY"
+            )}
+          </Descriptions.Item>
+          <Descriptions.Item label="Ürün Alış Tarihi">
+            {moment(dataAppointment?.data?.packageDepartureDate).format(
+              "DD/MM/YYYY"
+            )}
+          </Descriptions.Item>
+          <Descriptions.Item label="Toplam Tutar">
+            {dataAppointment?.data?.totalAmount}₺
           </Descriptions.Item>
         </Descriptions>
 
-        <Descriptions
-          bordered
-          title="Ödeme Bilgileri"
-          size={"small"}
-          style={{ marginBottom: 20 }}
-        >
-          <Descriptions.Item label="Toplam Tutar">3500₺</Descriptions.Item>
-        </Descriptions>
         <Alert
           type="warning"
           showIcon

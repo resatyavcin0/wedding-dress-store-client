@@ -1,15 +1,9 @@
 import { Table } from "antd";
 
-const TableComponent = ({ columns, data }) => {
+const TableComponent = ({ columns, data, pagination }) => {
   return (
     <>
-      <Table
-        pagination={{
-          defaultPageSize: 5,
-        }}
-        columns={columns}
-        dataSource={data}
-      />
+      <Table pagination={pagination} columns={columns} dataSource={data} />
     </>
   );
 };

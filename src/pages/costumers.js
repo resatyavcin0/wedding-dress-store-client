@@ -8,12 +8,13 @@ import TableComponent from "../components/TableComponent";
 import InvoicePaidModalContainer from "../containers/pendingPayments/InvoicePaidModalContainer";
 import AddCostumerModalContainer from "../containers/product/AddCostumerModalContainer";
 
-import { Button, Spin } from "antd";
+import { Button, Input, Spin } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import AddAppointmentModalContainer from "../containers/appointment/AddAppointmentModalContainer";
 
 const CostumersPage = () => {
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+  const [search, setSearch] = useState("");
   const [bringCostumer, setBringCostumer] = useState({});
   const [showCostumerAddModalState, setShowCostumerAddModalState] =
     useState(false);
@@ -34,7 +35,7 @@ const CostumersPage = () => {
     {
       title: "İsim",
       dataIndex: "firstName",
-      key: "id",
+      key: "firstName",
       render: (text, column) =>
         column?.appointments?.length > 0 ? (
           <a onClick={() => openInvoiceModalHandler(column)}>{text}</a>
@@ -45,7 +46,7 @@ const CostumersPage = () => {
     {
       title: "Soyisim",
       dataIndex: "lastName",
-      key: "id",
+      key: "lastName",
       render: (text, column) =>
         column?.appointments?.length > 0 ? (
           <a onClick={openInvoiceModalHandler}>{text}</a>
@@ -56,17 +57,17 @@ const CostumersPage = () => {
     {
       title: "Birincil Telefon Numarası",
       dataIndex: "primaryPhoneNumber",
-      key: "id",
+      key: "primaryPhoneNumber",
     },
     {
       title: "İkincil Telefon Numarası",
       dataIndex: "secondaryPhoneNumber",
-      key: "id",
+      key: "secondaryPhoneNumber",
     },
     {
       title: "Address",
       dataIndex: "address",
-      key: "id",
+      key: "address",
     },
     {
       title: "Aksiyonlar",
@@ -115,8 +116,20 @@ const CostumersPage = () => {
         setShowCostumerAddModalState={setShowCostumerAddModalState}
         refetch={refetch}
       />
+
+      <Input
+        style={{ marginBottom: 20 }}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
       <Spin spinning={isLoading}>
-        <TableComponent columns={columns} data={data?.costumers} />
+        <TableComponent
+          columns={columns}
+          data={data?.costumers?.filter((data) =>
+            data?.firstName.trim().toLowerCase().includes(search.toLowerCase())
+          )}
+          pagination={false}
+        />
       </Spin>
       <InvoicePaidModalContainer
         showInvoiceModal={showInvoiceModal}

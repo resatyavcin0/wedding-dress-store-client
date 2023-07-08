@@ -7,7 +7,7 @@ import AddProductModalContainer from "../containers/product/AddProductModalConta
 import AvailableProductDateRangeModalContainer from "../containers/product/AvailableProductDateRangeModalContainer";
 
 //utils
-import { Button, Card, Spin, Tabs } from "antd";
+import { Button, Card, Input, Spin, Tabs, Tag } from "antd";
 import { useQuery } from "@tanstack/react-query";
 
 const ProductsPage = () => {
@@ -18,17 +18,19 @@ const ProductsPage = () => {
   const [showProductAvailableModalState, setShowProductAvailableModalState] =
     useState(false);
   const [typeOfProductState, setTypeOfProductState] = useState("GELINLIK");
+  const [search, setSearch] = useState("");
+  const [product, setProduct] = useState();
 
   const { isLoading, data, refetch } = useQuery([typeOfProductState], {
     queryKey: ["products"],
     queryFn: async () =>
       await fetch(
-        `http://localhost:8443/product/groupByCategory?productCategory=${typeOfProductState}`
+        `http://localhost:8443/product/list?productCategory=${typeOfProductState}`
       ).then((res) => res.json()),
   });
 
   const openProductDetailDrawer = () => {
-    setShowProductDetailDrawerState(true);
+    if (product) setShowProductDetailDrawerState(true);
   };
 
   const openProductAddModalHandler = () => {
@@ -74,6 +76,12 @@ const ProductsPage = () => {
         Ürün Ekle
       </Button>
       <Tabs defaultActiveKey="1" items={items} onChange={onChangeHandler} />
+
+      <Input
+        style={{ margin: "20px 0" }}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
       <Spin spinning={isLoading}>
         <div
           style={{
@@ -86,34 +94,53 @@ const ProductsPage = () => {
         >
           {data?.data?.length === 0 && "Ürün Bulunmamaktadır."}
 
-          {data?.data?.map((product, key) => (
-            <Fragment key={key}>
-              <Card title={product?.productCode}>
-                <a onClick={openProductAvailableModalHandler}>
-                  {" "}
-                  {product?.productName[0]}({product?.count})
-                </a>
-              </Card>
+          {data?.data
+            ?.filter((data) =>
+              data?.productName
+                .trim()
+                .toLowerCase()
+                .includes(search.toLowerCase())
+            )
+            .map((product, key) => (
+              <Fragment key={key}>
+                <Card title={product?.productCode}>
+                  <div style={{ display: "flex" }}>
+                    <a
+                      style={{ flex: 1 }}
+                      onClick={() => {
+                        openProductAvailableModalHandler();
+                        openProductDetailDrawer();
+                        setProduct(product);
+                      }}
+                    >
+                      {product?.productName}{" "}
+                    </a>
 
-              {/* <ProductDetailDrawer
-                showProductDetailDrawerState={showProductDetailDrawerState}
-                setShowProductDetailDrawerState={
-                  setShowProductDetailDrawerState
-                }
-                product={product}
-              /> */}
+                    {!product?.isSent ? (
+                      <Tag color="success">Kullanılabilir</Tag>
+                    ) : (
+                      <Tag color="error">Kullanılamaz</Tag>
+                    )}
+                  </div>
+                </Card>
 
-              {/* <AvailableProductDateRangeModalContainer
+                {/* <AvailableProductDateRangeModalContainer
                 showProductAvailableModalState={showProductAvailableModalState}
                 setShowProductAvailableModalState={
                   setShowProductAvailableModalState
                 }
                 product={product}
               /> */}
-            </Fragment>
-          ))}
+              </Fragment>
+            ))}
         </div>
       </Spin>
+
+      <ProductDetailDrawer
+        showProductDetailDrawerState={showProductDetailDrawerState}
+        setShowProductDetailDrawerState={setShowProductDetailDrawerState}
+        product={product}
+      />
 
       <AddProductModalContainer
         showProductAddModalState={showProductAddModalState}

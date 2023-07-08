@@ -26,7 +26,7 @@ const AddAppointmentForm = ({
   useEffect(() => {
     const a = async () => {
       const c = await fetch(
-        `http://localhost:8443/product/groupByCategory?productCategory=${typeOfProductState}`
+        `http://localhost:8443/product/list?productCategory=${typeOfProductState}`
       );
       return c.json();
     };
@@ -34,7 +34,7 @@ const AddAppointmentForm = ({
     a().then((data) => {
       setDatas(
         data?.data?.map((item) => {
-          return { label: item.productName[0], value: item._id };
+          return { label: item.productName, value: item._id };
         })
       );
     });

@@ -16,12 +16,12 @@ const HomePage = () => {
       title={"Ana Sayfa"}
       subTitle={"Bu sayfa özelinde istatiklerinizi takip edebilirsiniz."}
     >
-      <Alert
+      {/* <Alert
         message="Bu sayfa, veriler eklendikçe açılacaktır. Bir süre verilerin hesaplanması gerekmektedir."
         type="warning"
         showIcon
-      />
-      {/* 
+      /> */}
+
       <FilterAreaContainer
         selectFilterContent={selectFilterContent}
         setSelectFilterContent={setSelectFilterContent}
@@ -34,7 +34,7 @@ const HomePage = () => {
         selectFilterContent={selectFilterContent}
         isRefetchStatistic={isRefetchStatistic}
         setIsRefetchStatistic={setIsRefetchStatistic}
-      /> */}
+      />
     </MainCore>
   );
 };
