@@ -1,76 +1,96 @@
-//icons
-import {
-  HomeOutlined,
-  BarcodeOutlined,
-  TeamOutlined,
-  WalletOutlined,
-  ScheduleOutlined,
-} from "@ant-design/icons";
-
 //pages
-import RegisterPage from "./pages/register";
-import SigninPage from "./pages/signin";
 import HomePage from "./pages/home";
 import AppointmentsPage from "./pages/appointments";
 import CostumersPage from "./pages/costumers";
 import PendingPaymentsPage from "./pages/pendingPayments";
 import ProductsPage from "./pages/products";
 import NotFound from "./pages/notFound";
+import RegisterPage from "./pages/register";
 import VerifyPage from "./pages/verify";
+import LoginPage from "./pages/login";
+
+//3rd-party libraries
+import {
+  HomeOutlined,
+  BarcodeOutlined,
+  TeamOutlined,
+  WalletOutlined,
+  ScheduleOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
+
+//utils
+import { ROLES } from "./utils/roles";
+import { PAGE_PATHS } from "./utils/pagesPaths";
+import Settings from "./pages/settings";
 
 const ALL_ROUTES = [
-  // {
-  //   path: "/register",
-  //   element: <RegisterPage />,
-  // },
-  // {
-  //   path: "/verify",
-  //   element: <VerifyPage />,
-  // },
-  // {
-  //   path: "/signin",
-  //   element: <SigninPage />,
-  // },
   {
-    path: "*",
+    path: PAGE_PATHS.REGISTER,
+    element: <RegisterPage />,
+    allow: [ROLES.SUPER, ROLES.ADMIN, ROLES.EMPLOYEE],
+  },
+  {
+    path: PAGE_PATHS.VERIFY,
+    element: <VerifyPage />,
+    allow: [ROLES.SUPER, ROLES.ADMIN, ROLES.EMPLOYEE],
+  },
+  {
+    path: PAGE_PATHS.LOGIN,
+    element: <LoginPage />,
+    allow: [ROLES.SUPER, ROLES.ADMIN, ROLES.EMPLOYEE],
+  },
+  {
+    path: PAGE_PATHS.NOT_FOUND,
     element: <NotFound />,
+    allow: [ROLES.SUPER, ROLES.ADMIN, ROLES.EMPLOYEE],
   },
   {
     label: "Ana Sayfa",
-    key: "/",
     icon: <HomeOutlined />,
-    path: "/",
+    key: PAGE_PATHS.HOME,
+    path: PAGE_PATHS.HOME,
     element: <HomePage />,
+    allow: [ROLES.SUPER, ROLES.ADMIN, ROLES.EMPLOYEE],
   },
   {
     label: "Müşteri İşlemleri",
-    key: "/costumers",
     icon: <TeamOutlined />,
-    path: "/costumers",
+    key: PAGE_PATHS.COSTUMERS,
+    path: PAGE_PATHS.COSTUMERS,
     element: <CostumersPage />,
+    allow: [ROLES.SUPER, ROLES.ADMIN, ROLES.EMPLOYEE],
   },
   {
     label: "Randevu İşlemleri",
-    key: "/appointments",
     icon: <ScheduleOutlined />,
-    path: "/appointments",
+    key: PAGE_PATHS.APPOINTMENTS,
+    path: PAGE_PATHS.APPOINTMENTS,
     element: <AppointmentsPage />,
+    allow: [ROLES.SUPER, ROLES.ADMIN, ROLES.EMPLOYEE],
   },
   {
     label: "Ürün İşlemleri",
-    key: "/products",
     icon: <BarcodeOutlined />,
-    path: "/products",
+    key: PAGE_PATHS.PRODUCTS,
+    path: PAGE_PATHS.PRODUCTS,
     element: <ProductsPage />,
+    allow: [ROLES.SUPER, ROLES.ADMIN, ROLES.EMPLOYEE],
   },
-
-  // {
-  //   label: "Bekleyen taksitler",
-  //   key: "/pending-payments",
-  //   icon: <WalletOutlined />,
-  //   path: "/pending-payments",
-  //   element: <PendingPaymentsPage />,
-  // },
+  {
+    label: "Bekleyen taksitler",
+    icon: <WalletOutlined />,
+    key: PAGE_PATHS.PENDING_PAYMENT,
+    path: PAGE_PATHS.PENDING_PAYMENT,
+    element: <PendingPaymentsPage />,
+  },
+  {
+    label: "Ayarlar",
+    icon: <SettingOutlined />,
+    key: PAGE_PATHS.SETTINGS,
+    path: PAGE_PATHS.SETTINGS,
+    element: <Settings />,
+  },
 ];
 
 export default ALL_ROUTES;

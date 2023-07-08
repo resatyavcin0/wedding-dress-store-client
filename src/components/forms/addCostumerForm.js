@@ -23,68 +23,23 @@ const AddCostumerForm = ({ form }) => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <Form.Item
-        label="Müşteri İsmi"
-        name="firstName"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Müşteri İsmi" name="firstName">
         <Input />
       </Form.Item>
 
-      <Form.Item
-        label="Müşteri Soyismi"
-        name="lastName"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Müşteri Soyismi" name="lastName">
         <Input />
       </Form.Item>
 
-      <Form.Item
-        label="Müşteri Birincil Telefonu"
-        name="primaryPhoneNumber"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Müşteri Birincil Telefonu" name="primaryPhoneNumber">
         <Input />
       </Form.Item>
 
-      <Form.Item
-        label="Müşteri İkincil Telefonu"
-        name="secondaryPhoneNumber"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Müşteri İkincil Telefonu" name="secondaryPhoneNumber">
         <Input />
       </Form.Item>
 
-      <Form.Item
-        label="Müşteri Adresi"
-        name="address"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Müşteri Adresi" name="address">
         <Input.TextArea />
       </Form.Item>
     </Form>

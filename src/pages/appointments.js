@@ -64,7 +64,7 @@ const AppointmentsPage = () => {
         "Bu sayfada geçmişteki tüm randevular gözükmektedir. İçlerinde aramalar yapabilir ve onları yönetebilirsiniz."
       }
     >
-      <Calendar onChange={onChangeHandler} cellRender={cellRender} />
+      <Calendar onChange={onChangeHandler} />
     </MainCore>
   );
 };

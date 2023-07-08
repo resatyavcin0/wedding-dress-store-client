@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import MainCore from "../core/Main";
 
-//components
-import TableComponent from "../components/TableComponent";
-
 //containers
 import InvoicePaidModalContainer from "../containers/pendingPayments/InvoicePaidModalContainer";
 import AddCostumerModalContainer from "../containers/product/AddCostumerModalContainer";
 
-import { Button, Input, Spin } from "antd";
+import { Button, Input, Spin, Table } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import AddAppointmentModalContainer from "../containers/appointment/AddAppointmentModalContainer";
 
+import { SearchOutlined } from "@ant-design/icons";
 const CostumersPage = () => {
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
   const [search, setSearch] = useState("");
@@ -118,12 +116,14 @@ const CostumersPage = () => {
       />
 
       <Input
-        style={{ marginBottom: 20 }}
+        prefix={<SearchOutlined style={{ opacity: 0.4, paddingRight: 8 }} />}
+        placeholder="Müşterilerde arayın..."
+        style={{ marginBottom: 20, padding: 10, fontSize: 18 }}
         onChange={(e) => setSearch(e.target.value)}
       />
 
       <Spin spinning={isLoading}>
-        <TableComponent
+        <Table
           columns={columns}
           data={data?.costumers?.filter((data) =>
             data?.firstName.trim().toLowerCase().includes(search.toLowerCase())

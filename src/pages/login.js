@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Auth from "../core/Auth";
-import { Alert, Form, Input, Button, message } from "antd";
+import { Form, Button, message } from "antd";
 import ReactPinInput from "react-pin-input";
 
-const SigninPage = () => {
+const LoginPage = () => {
   const [disableButton, setDisableButton] = useState(true);
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -74,4 +74,4 @@ const SigninPage = () => {
   );
 };
 
-export default SigninPage;
+export default LoginPage;

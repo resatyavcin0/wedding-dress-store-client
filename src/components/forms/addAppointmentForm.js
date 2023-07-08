@@ -128,109 +128,37 @@ const AddAppointmentForm = ({
 
       {isPackage && (
         <>
-          <Form.Item
-            label="Paket Gidiş Günü"
-            name="packageDepartureDate"
-            rules={[
-              {
-                required: true,
-                message: "Lütfen boş bırakmayınız.",
-              },
-            ]}
-          >
+          <Form.Item label="Paket Gidiş Günü" name="packageDepartureDate">
             <DatePicker placeholder={false} style={{ width: "100%" }} />
           </Form.Item>
-          <Form.Item
-            label="Paket Geliş Günü"
-            name="packageArrivalDate"
-            rules={[
-              {
-                required: true,
-                message: "Lütfen boş bırakmayınız.",
-              },
-            ]}
-          >
+          <Form.Item label="Paket Geliş Günü" name="packageArrivalDate">
             <DatePicker placeholder={false} style={{ width: "100%" }} />
           </Form.Item>
         </>
       )}
-      <Form.Item
-        label="Event Günü"
-        name="eventDate"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Event Günü" name="eventDate">
         <DatePicker placeholder={false} style={{ width: "100%" }} />
       </Form.Item>
 
       {istanbulWedding && (
-        <Form.Item
-          label="İkinci Event Günü"
-          name="secondEventDate"
-          rules={[
-            {
-              required: true,
-              message: "Lütfen boş bırakmayınız.",
-            },
-          ]}
-        >
+        <Form.Item label="İkinci Event Günü" name="secondEventDate">
           <DatePicker placeholder={false} style={{ width: "100%" }} />
         </Form.Item>
       )}
 
-      <Form.Item
-        label="Birincil Prova Günü"
-        name="firstRehearsalDate"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Birincil Prova Günü" name="firstRehearsalDate">
         <DatePicker placeholder={false} style={{ width: "100%" }} />
       </Form.Item>
 
-      <Form.Item
-        label="İkincil Prova Günü"
-        name="secondRehearsalDate"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
+      <Form.Item label="İkincil Prova Günü" name="secondRehearsalDate">
         <DatePicker placeholder={false} style={{ width: "100%" }} />
       </Form.Item>
 
-      <Form.Item
-        label="Ekstra Not"
-        name="extraNotes"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Ekstra Not" name="extraNotes">
         <Input.TextArea />
       </Form.Item>
 
-      <Form.Item
-        label="Toplam Miktar"
-        name="totalAmount"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Toplam Miktar" name="totalAmount">
         <InputNumber prefix="₺" style={{ width: "100%" }} />
       </Form.Item>
     </Form>

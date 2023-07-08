@@ -30,41 +30,14 @@ const GetPaidForm = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <Form.Item
-        label="Ödeme Yapan Kişi"
-        name="username"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen ödeme yapan kişiyi yazınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Ödeme Yapan Kişi" name="username">
         <Input />
       </Form.Item>
 
-      <Form.Item
-        label="Ödeme Tutarı"
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen ödeme tutarını yazınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Ödeme Tutarı" name="password">
         <InputNumber addonAfter={"₺"} style={{ width: "100%" }} />
       </Form.Item>
-      <Form.Item
-        label="Ödeme Alan"
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen ödeme alan kişiyi yazınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Ödeme Alan" name="password">
         <Select
           loading={isLoading}
           onChange={handleChange}

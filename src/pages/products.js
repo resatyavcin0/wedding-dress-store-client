@@ -9,6 +9,7 @@ import AvailableProductDateRangeModalContainer from "../containers/product/Avail
 //utils
 import { Button, Card, Input, Spin, Tabs, Tag } from "antd";
 import { useQuery } from "@tanstack/react-query";
+import { SearchOutlined } from "@ant-design/icons";
 
 const ProductsPage = () => {
   const [showProductDetailDrawerState, setShowProductDetailDrawerState] =
@@ -78,7 +79,9 @@ const ProductsPage = () => {
       <Tabs defaultActiveKey="1" items={items} onChange={onChangeHandler} />
 
       <Input
-        style={{ margin: "20px 0" }}
+        prefix={<SearchOutlined style={{ opacity: 0.4, paddingRight: 8 }} />}
+        placeholder="Ürünlerde arayın..."
+        style={{ marginBottom: 20, padding: 10, fontSize: 18 }}
         onChange={(e) => setSearch(e.target.value)}
       />
 

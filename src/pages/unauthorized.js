@@ -1,28 +1,31 @@
 import React from "react";
 
+//3rd-party libraries
 import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
+
+//utilities
 import { PAGE_PATHS } from "../utils/pagesPaths";
 
-const NotFound = () => {
+const Unauthorized = () => {
   const navigate = useNavigate();
 
   const onClickHandler = () => {
-    navigate(PAGE_PATHS.HOME);
+    navigate(PAGE_PATHS.LOGIN);
   };
 
   return (
     <Result
-      status="404"
-      title="404"
-      subTitle="Üzgünüz, bu sayfa bulunmamaktadır."
+      status="403"
+      title="403"
+      subTitle="Üzgünüz, bu sayfaya yetkiniz bulunmamaktadır."
       extra={
         <Button type="primary" onClick={onClickHandler}>
-          Ana Sayfaya Dön
+          Giriş Sayfasına Dön
         </Button>
       }
     />
   );
 };
 
-export default NotFound;
+export default Unauthorized;

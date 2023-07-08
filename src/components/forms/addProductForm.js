@@ -18,29 +18,11 @@ const AddProductForm = ({ form, messageApi }) => {
       onFinish={onFinish}
       autoComplete="off"
     >
-      <Form.Item
-        label="Ürün İsmi"
-        name="productName"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Ürün İsmi" name="productName">
         <Input />
       </Form.Item>
 
-      <Form.Item
-        label="Ürün Kategorisi"
-        name="productCategory"
-        rules={[
-          {
-            required: true,
-            message: "Lütfen boş bırakmayınız.",
-          },
-        ]}
-      >
+      <Form.Item label="Ürün Kategorisi" name="productCategory">
         <Select
           options={[
             { value: "KINALIK", label: "KINALIK" },

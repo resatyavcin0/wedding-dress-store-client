@@ -4,8 +4,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import StaticticCardContainer from "./StaticticCardContainer";
 
 //containers
-import PieChartComponent from "../../components/PieChartComponent";
-import BarChartComponent from "../../components/BarChartComponent";
+import PieChartComponent from "../../components/charts/PieChartComponent";
+import BarChartComponent from "../../components/charts/BarChartComponent";
 
 //utils
 import { Row, Spin, Statistic } from "antd";

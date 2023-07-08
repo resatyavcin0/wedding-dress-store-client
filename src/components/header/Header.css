@@ -1,0 +1,29 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px; 
+    padding: 0 32px;
+}
+
+.header-logo__title {
+    font-family: Cabin, sans-serif;
+    color: #228CDB !important;
+    margin: 0 !important;
+}
+
+
+.header-user{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.header-user__name, .header-user__role{
+    margin: 0 !important;
+}
+
+.header-user__avatar {
+    background-color: #d5ebfb;
+    color: #228CDB;
+}

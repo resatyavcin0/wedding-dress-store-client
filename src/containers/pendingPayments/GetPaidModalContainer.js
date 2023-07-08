@@ -10,8 +10,8 @@ const GetPaidModalContainer = ({ showGetPaidModal, setShowGetPaidModal }) => {
       title="Ödeme Ekranı"
       openState={showGetPaidModal}
       closeModalHandler={() => setShowGetPaidModal(false)}
-      okButtonLabel={"Ödemeyi Gerçekleştir"}
-      cancelButtonLabel={"Vazgeç"}
+      // okButtonLabel={"Ödemeyi Gerçekleştir"}
+      // cancelButtonLabel={"Vazgeç"}
     >
       <GetPaidForm />
     </ModalComponent>

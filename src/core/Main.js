@@ -1,58 +1,43 @@
-import { Divider, Menu } from "antd";
-import React, { useState } from "react";
-import { Typography } from "antd";
-import ALL_ROUTES from "../routes";
+import React, { useEffect, useState } from "react";
+
+import { Divider, Menu, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 
+import ALL_ROUTES from "../routes";
+
+//components
+import HeaderComponent from "../components/header/HeaderComponent";
+
 const MainCore = ({ title, subTitle, children }) => {
-  const items = ALL_ROUTES.map(
-    (route) =>
-      route.label && {
-        label: route?.label,
-        key: route?.key,
-        icon: route?.icon,
-      }
-  );
   const navigate = useNavigate();
-  const [current, setCurrent] = useState("mail");
+  const [current, setCurrent] = useState(window.location.pathname);
+
   const onClick = (e) => {
-    setCurrent([e.key]);
-    navigate(e?.key);
+    setCurrent(e.key);
+    navigate(e.key);
   };
 
   return (
     <div>
-      <Typography.Title
-        level={2}
-        style={{
-          fontFamily: "Lobster, cursive",
-          textAlign: "center",
-          color: "#3066BE",
-          marginBottom: 10,
-        }}
-      >
-        Çağlar Gelinlik
-      </Typography.Title>
-      <Typography.Title
-        level={5}
-        style={{
-          fontFamily: "Cabin, sans-serif",
-          textAlign: "center",
-          color: "#3066BE",
-          marginTop: 0,
-        }}
-      >
-        1995'ten bu yana gelinlikte bir numara
-      </Typography.Title>
-      <Divider style={{ marginBottom: 0 }} />
+      <HeaderComponent />
+      <Divider style={{ margin: 0 }} />
 
-      <Menu
-        onClick={onClick}
-        selectedKeys={[...current]}
-        mode="horizontal"
-        items={items}
-      />
-      <div style={{ padding: 30 }}>
+      <Menu onClick={onClick} selectedKeys={current} mode="horizontal">
+        {ALL_ROUTES.map(
+          (route) =>
+            route.label && (
+              <Menu.Item
+                style={{ paddingLeft: 32, margin: 0 }}
+                icon={route.icon}
+                key={route.key}
+              >
+                {route.label}
+              </Menu.Item>
+            )
+        )}
+      </Menu>
+
+      <div style={{ padding: 32 }}>
         <Typography.Title level={3} style={{ margin: 0 }}>
           {title}
         </Typography.Title>

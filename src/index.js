@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { Button, ConfigProvider } from "antd";
 
 const queryClient = new QueryClient();
 
@@ -11,7 +12,16 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
-      <App />
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "#228CDB",
+            borderRadius: 2,
+          },
+        }}
+      >
+        <App />
+      </ConfigProvider>
     </React.StrictMode>
   </QueryClientProvider>
 );
